@@ -2,4 +2,12 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="angry">#D35555</color>
+    <color name="fear">#34B68D</color>
+    <color name="surprise">#00BCD4</color>
+    <color name="sad">#58B1F8</color>
+    <color name="dislike">#DE79EF</color>
+    <color name="interest">#F88E64</color>
+    <color name="joy">#F8CE52</color>
+    <color name="trust">#ABF359</color>
 </resources>

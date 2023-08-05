@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">EmotionTracker</string>
+    <string name="how_you_feel_now">Что вы сейчас чувствуете?</string>
+    <string name="greeting">Привет, name!"</string>
+
 </resources>
