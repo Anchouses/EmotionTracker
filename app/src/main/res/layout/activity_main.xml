@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="1.0"
         tools:layout_editor_absoluteX="0dp">
 
         <LinearLayout
@@ -49,18 +49,148 @@
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
-            <ImageButton
-                android:id="@+id/angry"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_margin="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp"
-                android:background="@color/angry" />
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
+                android:columnCount="2"
+                android:rowCount="4">
 
+                <ImageButton
+                    android:id="@+id/angry"
+                    android:layout_width="150dp"
+                    android:layout_height="60dp"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:layout_margin="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@color/angry"
+                    android:contentDescription="@string/angry"
+                    android:text="@string/angry"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="normal|bold" />
 
+                <ImageButton
+                    android:id="@+id/sad"
+                    android:layout_width="150dp"
+                    android:layout_height="60dp"
+                    android:layout_row="0"
+                    android:layout_column="1"
+                    android:layout_margin="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@color/sad"
+                    android:contentDescription="@string/sad"
+                    android:text="@string/sad"
+                    android:textSize="14sp" />
+
+                <ImageButton
+                    android:id="@+id/fear"
+                    android:layout_width="150dp"
+                    android:layout_height="60dp"
+                    android:layout_row="1"
+                    android:layout_column="0"
+                    android:layout_margin="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@color/fear"
+                    android:contentDescription="@string/fear" />
+
+                <ImageButton
+                    android:id="@+id/surprise"
+                    android:layout_width="150dp"
+                    android:layout_height="60dp"
+                    android:layout_row="1"
+                    android:layout_column="1"
+                    android:layout_margin="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@color/surprise"
+                    android:contentDescription="@string/surprise" />
+
+                <ImageButton
+                    android:id="@+id/dislike"
+                    android:layout_width="150dp"
+                    android:layout_height="60dp"
+                    android:layout_row="2"
+                    android:layout_column="0"
+                    android:layout_margin="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@color/dislike"
+                    android:contentDescription="@string/dislike" />
+
+                <ImageButton
+                    android:id="@+id/interest"
+                    android:layout_width="150dp"
+                    android:layout_height="60dp"
+                    android:layout_row="2"
+                    android:layout_column="1"
+                    android:layout_margin="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@color/interest"
+                    android:contentDescription="@string/interest" />
+
+                <ImageButton
+                    android:id="@+id/joy"
+                    android:layout_width="150dp"
+                    android:layout_height="60dp"
+                    android:layout_row="3"
+                    android:layout_column="0"
+                    android:layout_margin="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@color/joy"
+                    android:contentDescription="@string/joy" />
+
+                <ImageButton
+                    android:id="@+id/trust"
+                    android:layout_width="150dp"
+                    android:layout_height="60dp"
+                    android:layout_row="3"
+                    android:layout_column="1"
+                    android:layout_margin="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@color/trust"
+                    android:contentDescription="@string/trust" />
+
+            </GridLayout>
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_margin="32dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginRight="32dp"
+                android:layout_marginBottom="32dp"
+                android:text="@string/choice" />
         </LinearLayout>
     </ScrollView>
 
