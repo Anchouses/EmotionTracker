@@ -7,7 +7,7 @@
     <string name="surprise">Удивление</string>
     <string name="sad">Грусть</string>
     <string name="dislike">Неприязнь</string>
-    <string name="interest">Интерес</string>
+    <string name="interest">Предвосхищение</string>
     <string name="joy">Радость</string>
     <string name="trust">Доверие</string>
     <string name="choice">Выбрать</string>
@@ -15,7 +15,7 @@
     <string name="back">Назад</string>
     <string name="emotion">Эмоция</string>
     <string name="note_description">Напишите заметку, это поможет лучше понять ощущения и взглянуть на ситуацию со стороны. Можете ответить на вопросы:</string>
-    <string name="list1">какая ситуация на это повляила?</string>
+    <string name="list1">• какая ситуация на это повляила?</string>
     <string name="list2">что я хочу сделать под влиянием этой эмоции?</string>
     <string name="list3">какие мысли были в этот момент?</string>
     <string name="list4">какие ощущения в теле она вызывает??</string>
