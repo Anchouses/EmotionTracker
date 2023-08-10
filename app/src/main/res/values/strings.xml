@@ -10,6 +10,11 @@
     <string name="interest">Предвосхищение</string>
     <string name="joy">Радость</string>
     <string name="trust">Доверие</string>
+    <string name="date">Текущая дата</string>
+    <string name="description">Описание</string>
+    <string name="light_level">Легкий уровень эмоции</string>
+    <string name="middle_level">Средний уровень эмоции</string>
+    <string name="hard_level">Сильный уровень эмоции</string>
     <string name="choice">Выбрать</string>
     <string name="add_note">Добавьте заметку</string>
     <string name="back">Назад</string>
@@ -18,5 +23,5 @@
     <string name="list1">• какая ситуация на это повляила?</string>
     <string name="list2">что я хочу сделать под влиянием этой эмоции?</string>
     <string name="list3">какие мысли были в этот момент?</string>
-    <string name="list4">какие ощущения в теле она вызывает??</string>
+    <string name="list4">какие ощущения в теле она вызывает?</string>
 </resources>
