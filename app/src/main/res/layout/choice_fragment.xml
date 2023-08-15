@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/choice_fragment"
@@ -44,8 +43,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="156dp"
         android:layout_marginEnd="8dp"
-        android:backgroundTint="@color/interest"
         android:background="@drawable/corner_radius"
+        android:backgroundTint="@color/interest"
         android:contentDescription="@string/interest"
         android:gravity="center"
         android:text="@string/interest"
@@ -66,8 +65,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:backgroundTint="@color/trust"
         android:background="@drawable/corner_radius"
+        android:backgroundTint="@color/trust"
         android:contentDescription="@string/trust"
         android:text="@string/trust"
         android:textAllCaps="false"
@@ -87,8 +86,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:backgroundTint="@color/fear"
         android:background="@drawable/corner_radius"
+        android:backgroundTint="@color/fear"
         android:contentDescription="@string/fear"
         android:text="@string/fear"
         android:textAllCaps="false"
@@ -108,8 +107,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:backgroundTint="@color/angry"
         android:background="@drawable/corner_radius"
+        android:backgroundTint="@color/angry"
         android:contentDescription="@string/angry"
         android:text="@string/angry"
         android:textAllCaps="false"
@@ -128,8 +127,8 @@
         android:layout_margin="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/sad"
         android:background="@drawable/corner_radius"
+        android:backgroundTint="@color/sad"
         android:contentDescription="@string/sad"
         android:text="@string/sad"
         android:textAllCaps="false"
@@ -146,8 +145,8 @@
         android:layout_margin="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/joy"
         android:background="@drawable/corner_radius"
+        android:backgroundTint="@color/joy"
         android:contentDescription="@string/joy"
         android:text="@string/joy"
         android:textAllCaps="false"
@@ -164,8 +163,8 @@
         android:layout_margin="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/surprise"
         android:background="@drawable/corner_radius"
+        android:backgroundTint="@color/surprise"
         android:contentDescription="@string/surprise"
         android:text="@string/surprise"
         android:textAllCaps="false"
@@ -182,8 +181,8 @@
         android:layout_margin="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/dislike"
         android:background="@drawable/corner_radius"
+        android:backgroundTint="@color/dislike"
         android:contentDescription="@string/dislike"
         android:text="@string/dislike"
         android:textAllCaps="false"
@@ -206,7 +205,7 @@
         <TextView
             android:id="@+id/date"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="24dp"
             android:layout_gravity="top"
             android:gravity="center"
             android:text="@string/date" />
@@ -215,6 +214,7 @@
             android:id="@+id/chosen_emotion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="8dp"
             android:gravity="center"
             android:text="@string/emotion"
             android:textColor="@color/black"
@@ -233,38 +233,43 @@
         <RadioGroup
             android:id="@+id/radioGroup"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="70dp"
             android:orientation="horizontal">
 
             <RadioButton
                 android:id="@+id/lightLevel"
-                android:layout_width="112dp"
+                android:layout_width="120dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="top"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="8dp"
                 android:elegantTextHeight="true"
+                android:soundEffectsEnabled="true"
                 android:text="@string/light_level"
+                android:textAlignment="gravity"
                 android:textScaleX="1" />
 
             <RadioButton
                 android:id="@+id/middleLevel"
                 android:layout_width="120dp"
-                android:layout_height="wrap_content"
+                android:layout_height="68dp"
                 android:layout_gravity="center|top"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
+                android:focusedByDefault="false"
+                android:soundEffectsEnabled="true"
                 android:text="@string/middle_level" />
 
             <RadioButton
                 android:id="@+id/hardLevel"
-                android:layout_width="109dp"
-                android:layout_height="wrap_content"
+                android:layout_width="126dp"
+                android:layout_height="68dp"
                 android:layout_gravity="top"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
+                android:soundEffectsEnabled="true"
                 android:text="@string/hard_level" />
         </RadioGroup>
 
@@ -274,7 +279,7 @@
             android:layout_height="60dp"
             android:layout_gravity="fill_vertical"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/corner_radius"
@@ -284,7 +289,6 @@
             android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold" />
-
     </LinearLayout>
 
 

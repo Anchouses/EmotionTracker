@@ -2,12 +2,9 @@ package com.emotiontracker
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.Button
-import android.widget.TextView
 import com.emotiontracker.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity(), ChoiceFragment.Callbacks {
+class MainActivity : AppCompatActivity(), ChoiceFragment.Callbacks, NoteFragment.Callbacks {
 
     private lateinit var  binding: ActivityMainBinding
 
@@ -18,21 +15,30 @@ class MainActivity : AppCompatActivity(), ChoiceFragment.Callbacks {
 
         val choiceFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView)
         if (choiceFragment == null) {
-            val fragment = ChoiceFragment()
+            val fragment = ChoiceFragment.newInstance()
             supportFragmentManager
                 .beginTransaction()
                 .add(R.id.fragmentContainerView, fragment)
                 .commit()
         }
+
     }
 
-    override fun onEmotionSelected(){
-        val fragment = NoteFragment()
+    override fun onEmotionSelected(emotionId: Int) {
+        val fragment = NoteFragment.newInstance(emotionId)
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragmentContainerView, fragment)
-            .addToBackStack(null)
+            .addToBackStack("choice")
             .commit()
     }
 
+    override fun onReadyNoteSelected() {
+        val fragment = CalendarFragment.newInstance()
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragmentContainerView, fragment)
+            .addToBackStack("note")
+            .commit()
+    }
 }

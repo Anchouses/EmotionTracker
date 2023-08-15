@@ -1,9 +1,9 @@
 package com.emotiontracker
 
-import android.view.View
+import androidx.lifecycle.ViewModel
 import java.util.Date
 
-class EmotionViewModel  {
+class EmotionViewModel: ViewModel()  {
 
     val emotions = listOf(
         Emotion("Злость", "Досада", "Гнев","Раздраженно-враждебное состояние", "Раздражение и неудовольствие из-за неудачи", "Бурная реакция негодования. Желание разрушения и проявления агрессии"),
@@ -16,5 +16,6 @@ class EmotionViewModel  {
         Emotion("Доверие", "Одобрение","Восхищение","Уверенность в безопасности и благоприятности ситуации", "Признание ситуации хорошей и правильной", "Позитивная реакция на талант, умения и красоту"))
 
     var date: Date = Date()
+    var description: String = ""
 
 }
