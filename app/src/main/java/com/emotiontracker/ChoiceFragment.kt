@@ -39,52 +39,51 @@ class ChoiceFragment: Fragment() {
         binding.date.text  = DateFormat.format("Сегодня,  dd MMMM", emotionViewModel.date).toString()
 
         binding.angryButton.setOnClickListener{
-            emotionChoice(0)
-        }
-        binding.fearButton.setOnClickListener(){
             emotionChoice(1)
         }
-        binding.surpriseButton.setOnClickListener(){
-            emotionChoice(2)
-        }
-        binding.sadButton.setOnClickListener(){
-            emotionChoice(3)
-        }
-        binding.dislikeButton.setOnClickListener(){
+        binding.fearButton.setOnClickListener{
             emotionChoice(4)
         }
-        binding.interestButton.setOnClickListener(){
-            emotionChoice(5)
-        }
-        binding.joyButton.setOnClickListener(){
-            emotionChoice(6)
-        }
-        binding.trustButton.setOnClickListener(){
+        binding.surpriseButton.setOnClickListener{
             emotionChoice(7)
+        }
+        binding.sadButton.setOnClickListener{
+            emotionChoice(10)
+        }
+        binding.dislikeButton.setOnClickListener{
+            emotionChoice(13)
+        }
+        binding.interestButton.setOnClickListener{
+            emotionChoice(16)
+        }
+        binding.joyButton.setOnClickListener{
+            emotionChoice(19)
+        }
+        binding.trustButton.setOnClickListener{
+            emotionChoice(22)
         }
 
 
     }
     private fun emotionChoice(i: Int){
-
         binding.chosenEmotion.text = emotionViewModel.emotions[i].name
         binding.emotionDescription.text = emotionViewModel.emotions[i].description
-        binding.lightLevel.text = emotionViewModel.emotions[i].nameLight
+        binding.lightLevel.text = emotionViewModel.emotions[i+1].name
         binding.middleLevel.text = emotionViewModel.emotions[i].name
-        binding.hardLevel.text = emotionViewModel.emotions[i].nameHard
+        binding.hardLevel.text = emotionViewModel.emotions[i+2].name
 
         binding.radioGroup.setOnCheckedChangeListener { _, _ ->
             if (binding.lightLevel.isChecked) {
-                binding.chosenEmotion.text = emotionViewModel.emotions[i].nameLight
-                binding.emotionDescription.text =emotionViewModel.emotions[i].descriptionLight
+                binding.chosenEmotion.text = emotionViewModel.emotions[i+1].name
+                binding.emotionDescription.text =emotionViewModel.emotions[i+1].description
             }
             if (binding.middleLevel.isChecked) {
                 binding.chosenEmotion.text = emotionViewModel.emotions[i].name
-                binding.emotionDescription.text =emotionViewModel.emotions[i].description
+                binding.emotionDescription.text = emotionViewModel.emotions[i].description
             }
             if (binding.hardLevel.isChecked) {
-                binding.chosenEmotion.text = emotionViewModel.emotions[i].nameHard
-                binding.emotionDescription.text =emotionViewModel.emotions[i].descriptionHard
+                binding.chosenEmotion.text = emotionViewModel.emotions[i+2].name
+                binding.emotionDescription.text = emotionViewModel.emotions[i+2].description
             }
         }
 

@@ -6,6 +6,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.emotiontracker.databinding.NoteFragmentBinding
@@ -43,6 +44,7 @@ class NoteFragment: Fragment() {
         val emotionId = requireArguments().getInt(EMOTION_ID)
 
         binding.emotionName.text = emotionViewModel.emotions[emotionId].name
+        binding.emotionName.highlightColor = emotionViewModel.emotions[emotionId].color
 
 
         val textWatcher = object: TextWatcher {
@@ -57,7 +59,7 @@ class NoteFragment: Fragment() {
                                        start: Int,
                                        before: Int,
                                        count: Int) {
-                emotionViewModel.description = sequence.toString()
+                emotionViewModel.note = sequence.toString()
             }
 
             override fun afterTextChanged(sequence: Editable?) {
@@ -68,6 +70,12 @@ class NoteFragment: Fragment() {
 
 
         binding.buttonBack.setOnClickListener(){
+//            activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true){
+//                override fun handleOnBackPressed(){
+//
+//                }
+//            })
+
         }
 
 

@@ -1,8 +1,13 @@
 package com.emotiontracker
 
-data class Emotion(val name: String,
-                   val nameLight: String,
-                   val nameHard: String,
-                   val description: String,
-                   val descriptionLight: String,
-                   val descriptionHard: String)
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+data class Emotion(
+    var id: Int = 0,
+    val name: String,
+    val description: String,
+    val color: Int
+)
+

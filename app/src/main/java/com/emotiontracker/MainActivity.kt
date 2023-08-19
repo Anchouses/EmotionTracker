@@ -1,7 +1,10 @@
 package com.emotiontracker
 
+import android.graphics.Color
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import com.emotiontracker.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), ChoiceFragment.Callbacks, NoteFragment.Callbacks {
@@ -21,7 +24,6 @@ class MainActivity : AppCompatActivity(), ChoiceFragment.Callbacks, NoteFragment
                 .add(R.id.fragmentContainerView, fragment)
                 .commit()
         }
-
     }
 
     override fun onEmotionSelected(emotionId: Int) {
