@@ -1,13 +1,29 @@
 package com.emotiontracker
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.format.DateFormat
+import android.text.format.DateFormat.format
+import android.text.format.DateFormat.getBestDateTimePattern
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.emotiontracker.databinding.ChoiceFragmentBinding
+import java.text.DateFormat.getDateInstance
+import java.time.LocalDate
+import java.time.Month
+import java.time.Year
+import java.util.Calendar
+import java.util.Calendar.DATE
+import java.util.Calendar.HOUR
+import java.util.Calendar.MILLISECOND
+import java.util.Calendar.MINUTE
+import java.util.Calendar.MONTH
+import java.util.Calendar.SECOND
+import java.util.Calendar.YEAR
+import java.util.Locale
 
 class ChoiceFragment: Fragment() {
 
@@ -32,39 +48,54 @@ class ChoiceFragment: Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         callbacks = activity as Callbacks
 
-        binding.date.text  = DateFormat.format("Сегодня,  dd MMMM", emotionViewModel.date).toString()
+        val now = emotionViewModel.date//Calendar.getInstance().apply {
+//            set(HOUR, 0)
+//            set(MINUTE, 0)
+//            set(SECOND, 0)
+//            set(MILLISECOND, 0)
+//        }
+
+//        val to = StringBuilder().append(now.get(Calendar.DAY_OF_MONTH))
+//            .append(".")
+//            .append(now.get(MONTH) + 1)
+//            .append(".")
+//            .append(now.get(YEAR))
+
+        //val today = now.time.toString()
+
+        binding.date.text  = format("Сегодня, dd.MM.yy", now)
 
         binding.angryButton.setOnClickListener{
-            emotionChoice(1)
+            emotionChoice(0)
         }
         binding.fearButton.setOnClickListener{
-            emotionChoice(4)
+            emotionChoice(3)
         }
         binding.surpriseButton.setOnClickListener{
-            emotionChoice(7)
+            emotionChoice(6)
         }
         binding.sadButton.setOnClickListener{
-            emotionChoice(10)
+            emotionChoice(9)
         }
         binding.dislikeButton.setOnClickListener{
-            emotionChoice(13)
+            emotionChoice(12)
         }
         binding.interestButton.setOnClickListener{
-            emotionChoice(16)
+            emotionChoice(15)
         }
         binding.joyButton.setOnClickListener{
-            emotionChoice(19)
+            emotionChoice(18)
         }
         binding.trustButton.setOnClickListener{
-            emotionChoice(22)
+            emotionChoice(21)
         }
-
-
     }
+
     private fun emotionChoice(i: Int){
         binding.chosenEmotion.text = emotionViewModel.emotions[i].name
         binding.emotionDescription.text = emotionViewModel.emotions[i].description
@@ -75,7 +106,7 @@ class ChoiceFragment: Fragment() {
         binding.radioGroup.setOnCheckedChangeListener { _, _ ->
             if (binding.lightLevel.isChecked) {
                 binding.chosenEmotion.text = emotionViewModel.emotions[i+1].name
-                binding.emotionDescription.text =emotionViewModel.emotions[i+1].description
+                binding.emotionDescription.text = emotionViewModel.emotions[i+1].description
             }
             if (binding.middleLevel.isChecked) {
                 binding.chosenEmotion.text = emotionViewModel.emotions[i].name

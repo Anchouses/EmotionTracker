@@ -6,17 +6,17 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.emotiontracker.databinding.NoteFragmentBinding
+import java.util.UUID
 
 private const val EMOTION_ID = "emotion_id"
 
 class NoteFragment: Fragment() {
 
     interface Callbacks{
-        fun onReadyNoteSelected(){
+        fun onSaveNoteSelected(emotionId: Int){
         }
     }
 
@@ -44,7 +44,7 @@ class NoteFragment: Fragment() {
         val emotionId = requireArguments().getInt(EMOTION_ID)
 
         binding.emotionName.text = emotionViewModel.emotions[emotionId].name
-        binding.emotionName.highlightColor = emotionViewModel.emotions[emotionId].color
+        binding.emotionName.setTextColor(emotionViewModel.emotions[emotionId].color)
 
 
         val textWatcher = object: TextWatcher {
@@ -69,18 +69,18 @@ class NoteFragment: Fragment() {
         binding.editNote.addTextChangedListener(textWatcher)   //Добавляем TextWatcher в список методов, которые вызываются при изменении текста TextView.
 
 
-        binding.buttonBack.setOnClickListener(){
+        binding.buttonBack.setOnClickListener{
 //            activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true){
 //                override fun handleOnBackPressed(){
-//
 //                }
 //            })
-
         }
 
+        binding.saveNote.setOnClickListener{
+            val mood = Mood(id = null, emotionId, emotionViewModel.note, emotionViewModel.date)
+            emotionViewModel.addMood(mood)
 
-        binding.readyNote.setOnClickListener{
-            callbacks?.onReadyNoteSelected()
+            callbacks?.onSaveNoteSelected(emotionId)
         }
     }
 

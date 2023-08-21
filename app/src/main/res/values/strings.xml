@@ -27,4 +27,7 @@
     <string name="note_name">Заметка</string>
     <string name="ready">Готово</string>
     <string name="calendar">Календарь</string>
+    <string name="save">Сохранить</string>
+    <string name="save_date">Сохраненная дата</string>
+    <string name="save_note">Сохраненная заметка</string>
 </resources>

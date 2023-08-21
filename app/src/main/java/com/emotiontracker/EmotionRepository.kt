@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.Room
 import com.emotiontracker.database.EmotionDatabase
+import java.util.UUID
 import java.util.concurrent.Executors
 
 
@@ -18,7 +19,11 @@ class EmotionRepository private constructor(context: Context) {
 
     private val emotionDao = database.emotionDao()
 
+    //private val numberOfThreads: Int = 4
+    //newFixedThreadPool(numberOfThreads)
     private val executor = Executors.newSingleThreadExecutor()
+
+    fun getMoods(): LiveData<List<Mood>> = emotionDao.getMoods()
 
     fun getMood(id: Int): LiveData<Mood> = emotionDao.getMood(id)
 

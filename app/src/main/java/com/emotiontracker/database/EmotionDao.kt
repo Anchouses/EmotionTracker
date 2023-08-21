@@ -12,8 +12,8 @@ import java.util.UUID
 @Dao
 interface EmotionDao {
 
-//    @Query("SELECT * FROM Emotion")
-//    fun getEmotions(): LiveData<List<Emotion>>
+    @Query("SELECT * FROM Mood")
+    fun getMoods(): LiveData<List<Mood>>
 
     @Query("SELECT * FROM Mood WHERE id=(:id)")  //
     fun getMood(id: Int): LiveData<Mood>
