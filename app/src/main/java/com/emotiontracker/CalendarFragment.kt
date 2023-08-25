@@ -1,5 +1,7 @@
 package com.emotiontracker
 
+import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
 import android.text.format.DateFormat
 import android.view.LayoutInflater
@@ -13,31 +15,17 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emotiontracker.databinding.CalendarFragmentBinding
-import java.time.LocalDate
-import java.time.LocalDate.now
-import java.time.Month
-import java.time.MonthDay
-import java.time.Year
 import java.util.Calendar
-import java.util.Date
-import java.util.Locale
 
-
-private const val EMOTION_ID = "emotion_id"
 class CalendarFragment : Fragment() {
-
 
     private var _binding: CalendarFragmentBinding? = null
     private val binding: CalendarFragmentBinding
         get() = _binding!!
-    lateinit var moodRecyclerView: RecyclerView
+
+    private lateinit var moodRecyclerView: RecyclerView
     private var adapter = MoodAdapter(emptyList())
     private val emotionViewModel: EmotionViewModel by viewModels()
-
-//
-    private var year: Int = 0
-    private var month:Int = 0
-    private var day: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,16 +39,15 @@ class CalendarFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        emotionViewModel.moodListLiveData.observe(   //используется для регистрации наблюдателя за экземпляром LiveData
-            viewLifecycleOwner,       // определяет время жизни наблюдателя. Владелец жизненного цикла тут фрагмент, viewLifecycleOwner - его интерфейс
-            Observer { moods ->       // Observer -  объект, отвечающий за реакцию на новые данные LiveData - наблюдатель
-                moods?.let {          // когда список преступлений готов, наблюдатель посылает список в updateUI для adapter
-                    updateUI(moods)
-                }
-            })
 
-            //val emotionId = requireArguments().getInt(EMOTION_ID)
-        var calendar = Calendar.getInstance()
+        emotionViewModel.moodListLiveData.observe(viewLifecycleOwner) { moods ->
+            moods?.let {
+                updateUI(moods)
+            }
+        }
+
+        val calendar = Calendar.getInstance()
+
         fun getDate(year: Int, month: Int, day: Int): Long{
             calendar.set(Calendar.YEAR, year)
             calendar.set(Calendar.MONTH, month)
@@ -71,11 +58,9 @@ class CalendarFragment : Fragment() {
             calendar.set(Calendar.MILLISECOND, 0)
             return calendar.timeInMillis
         }
-        binding.calendarView.setOnDateChangeListener{ view, year, month, dayOfMonth ->
+        binding.calendarView.setOnDateChangeListener{ _, year, month, dayOfMonth ->
 
             val millis: Long = getDate(year, month, dayOfMonth)
-
-            binding.calendarName.text = millis.toString()
 
             var filterMoods: List<Mood>
             emotionViewModel.moodListLiveData.observe(   //используется для регистрации наблюдателя за экземпляром LiveData
@@ -86,10 +71,6 @@ class CalendarFragment : Fragment() {
                 }
             )
         }
-
-//        binding.calendarView.setOnDateChangeListener(OnDateChangeListener { view, year, month, dayOfMonth ->
-//            var curDate = dayOfMonth.toString()
-//        })
     }
 
 
@@ -98,29 +79,27 @@ class CalendarFragment : Fragment() {
         moodRecyclerView.adapter = adapter
     }
 
-    //private fun updateDate(moods: List<Mood>)
-
     inner class MoodViewHolder(view: View): RecyclerView.ViewHolder(view){
 
         private val moodDate: TextView = itemView.findViewById(R.id.mood_date)
         private val moodNote: TextView = itemView.findViewById(R.id.mood_note)
         private val moodName: TextView = itemView.findViewById(R.id.mood_name)
         private val moodCard: CardView = itemView.findViewById(R.id.item_card)
+        var i = adapterPosition
 
-
+        @SuppressLint("ResourceAsColor")
         fun bind(mood: Mood){
-            moodDate.text = mood.date.time.toString() //DateFormat.format("dd MMMM yy", mood.date).toString()
+            moodDate.text = DateFormat.format("dd.MM.yy", mood.date).toString()
             moodName.text = emotionViewModel.emotions[mood.emotionId].name
             moodNote.text = mood.note
-            moodCard.setCardBackgroundColor(emotionViewModel.emotions[mood.emotionId].color) //= emotionViewModel.emotions[mood.emotionId].color
-            //binding.calendarView.focusedMonthDateColor
+            moodCard.setCardBackgroundColor(Color.parseColor(emotionViewModel.emotions[mood.emotionId].color))
         }
-
     }
+
     inner class MoodAdapter(var moods: List<Mood>): RecyclerView.Adapter<MoodViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoodViewHolder {
-            val view = layoutInflater.inflate(R.layout.item_mood, parent, false) //layoutInflater.inflate(R.layout.item_mood, parent, false)
+            val view = layoutInflater.inflate(R.layout.item_mood, parent, false)
             return  MoodViewHolder(view)
         }
 
@@ -135,12 +114,7 @@ class CalendarFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(emotionId: Int) =
-            CalendarFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(EMOTION_ID, emotionId)
-                }
-            }
+        fun newInstance() = CalendarFragment()
     }
 
     override fun onDestroyView() {

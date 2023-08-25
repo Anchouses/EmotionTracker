@@ -32,7 +32,6 @@ class ChoiceFragment: Fragment() {
     }
     private var callbacks: Callbacks? = null
 
-
     private var _binding: ChoiceFragmentBinding? = null
     private val binding: ChoiceFragmentBinding
         get() = _binding!!
@@ -53,20 +52,7 @@ class ChoiceFragment: Fragment() {
 
         callbacks = activity as Callbacks
 
-        val now = emotionViewModel.date//Calendar.getInstance().apply {
-//            set(HOUR, 0)
-//            set(MINUTE, 0)
-//            set(SECOND, 0)
-//            set(MILLISECOND, 0)
-//        }
-
-//        val to = StringBuilder().append(now.get(Calendar.DAY_OF_MONTH))
-//            .append(".")
-//            .append(now.get(MONTH) + 1)
-//            .append(".")
-//            .append(now.get(YEAR))
-
-        //val today = now.time.toString()
+        val now = emotionViewModel.date
 
         binding.date.text  = format("Сегодня, dd.MM.yy", now)
 

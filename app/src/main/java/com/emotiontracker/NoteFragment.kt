@@ -16,7 +16,7 @@ private const val EMOTION_ID = "emotion_id"
 class NoteFragment: Fragment() {
 
     interface Callbacks{
-        fun onSaveNoteSelected(emotionId: Int){
+        fun onSaveNoteSelected(){
         }
     }
 
@@ -44,8 +44,6 @@ class NoteFragment: Fragment() {
         val emotionId = requireArguments().getInt(EMOTION_ID)
 
         binding.emotionName.text = emotionViewModel.emotions[emotionId].name
-        binding.emotionName.setTextColor(emotionViewModel.emotions[emotionId].color)
-
 
         val textWatcher = object: TextWatcher {
             override fun beforeTextChanged(sequence: CharSequence?,
@@ -80,11 +78,9 @@ class NoteFragment: Fragment() {
             val mood = Mood(id = null, emotionId, emotionViewModel.note, emotionViewModel.date)
             emotionViewModel.addMood(mood)
 
-            callbacks?.onSaveNoteSelected(emotionId)
+            callbacks?.onSaveNoteSelected()
         }
     }
-
-
 
     companion object {
         @JvmStatic

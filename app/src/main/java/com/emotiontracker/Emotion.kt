@@ -8,6 +8,6 @@ data class Emotion(
     var id: Int = 0,
     val name: String,
     val description: String,
-    val color: Int
+    val color: String
 )
 

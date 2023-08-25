@@ -35,8 +35,8 @@ class MainActivity : AppCompatActivity(), ChoiceFragment.Callbacks, NoteFragment
             .commit()
     }
 
-    override fun onSaveNoteSelected(emotionId: Int) {
-        val fragment = CalendarFragment.newInstance(emotionId)
+    override fun onSaveNoteSelected() {
+        val fragment = CalendarFragment.newInstance()
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragmentContainerView, fragment)
