@@ -9,13 +9,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.emotiontracker.databinding.NoteFragmentBinding
+import java.util.UUID
 
 private const val EMOTION_ID = "emotion_id"
 
 class NoteFragment: Fragment() {
 
     interface Callbacks{
-        fun onReadyNoteSelected(){
+        fun onSaveNoteSelected(){
         }
     }
 
@@ -44,7 +45,6 @@ class NoteFragment: Fragment() {
 
         binding.emotionName.text = emotionViewModel.emotions[emotionId].name
 
-
         val textWatcher = object: TextWatcher {
             override fun beforeTextChanged(sequence: CharSequence?,
                                            start: Int,
@@ -57,7 +57,7 @@ class NoteFragment: Fragment() {
                                        start: Int,
                                        before: Int,
                                        count: Int) {
-                emotionViewModel.description = sequence.toString()
+                emotionViewModel.note = sequence.toString()
             }
 
             override fun afterTextChanged(sequence: Editable?) {
@@ -67,16 +67,20 @@ class NoteFragment: Fragment() {
         binding.editNote.addTextChangedListener(textWatcher)   //Добавляем TextWatcher в список методов, которые вызываются при изменении текста TextView.
 
 
-        binding.buttonBack.setOnClickListener(){
+        binding.buttonBack.setOnClickListener{
+//            activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true){
+//                override fun handleOnBackPressed(){
+//                }
+//            })
         }
 
+        binding.saveNote.setOnClickListener{
+            val mood = Mood(id = null, emotionId, emotionViewModel.note, emotionViewModel.date)
+            emotionViewModel.addMood(mood)
 
-        binding.readyNote.setOnClickListener{
-            callbacks?.onReadyNoteSelected()
+            callbacks?.onSaveNoteSelected()
         }
     }
-
-
 
     companion object {
         @JvmStatic
