@@ -1,3 +1,27 @@
 <resources>
     <string name="app_name">EmotionTracker</string>
+    <string name="how_you_feel_now">Что вы сейчас чувствуете?</string>
+    <string name="greeting">Привет, name!</string>
+    <string name="angry">Злость</string>
+    <string name="fear">Страх</string>
+    <string name="surprise">Удивление</string>
+    <string name="sad">Грусть</string>
+    <string name="dislike">Неприязнь</string>
+    <string name="interest">Предвосхищение</string>
+    <string name="joy">Радость</string>
+    <string name="trust">Доверие</string>
+    <string name="date">Текущая дата</string>
+    <string name="description">Описание</string>
+    <string name="light_level">Легкий уровень эмоции</string>
+    <string name="middle_level">Средний уровень эмоции</string>
+    <string name="hard_level">Сильный уровень эмоции</string>
+    <string name="choice">Выбрать</string>
+    <string name="add_note">Добавьте заметку</string>
+    <string name="back">Назад</string>
+    <string name="emotion">Эмоция</string>
+    <string name="note_description">Напишите заметку, это поможет лучше понять ощущения и взглянуть на ситуацию со стороны. Можете ответить на вопросы:</string>
+    <string name="list1">• какая ситуация на это повляила?</string>
+    <string name="list2">что я хочу сделать под влиянием этой эмоции?</string>
+    <string name="list3">какие мысли были в этот момент?</string>
+    <string name="list4">какие ощущения в теле она вызывает?</string>
 </resources>
