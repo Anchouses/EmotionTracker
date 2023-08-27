@@ -6,70 +6,67 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.emotiontracker.databinding.ChoiceFragmentBinding
-import java.util.logging.Level
 
 class ChoiceFragment: Fragment() {
 
     interface Callbacks{
-        fun onEmotionSelected()
+        fun onEmotionSelected(emotionId: Int)
     }
     private var callbacks: Callbacks? = null
 
+
     private var _binding: ChoiceFragmentBinding? = null
-    private val binding get() = _binding!!
+    private val binding: ChoiceFragmentBinding
+        get() = _binding!!
 
-    private val emotionViewModel = EmotionViewModel()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private val emotionViewModel: EmotionViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-
+    ): View {
         _binding = ChoiceFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        callbacks = activity as Callbacks
+
         binding.date.text  = DateFormat.format("Сегодня,  dd MMMM", emotionViewModel.date).toString()
 
         binding.angryButton.setOnClickListener{
-            levelChoice(0)
+            emotionChoice(0)
         }
         binding.fearButton.setOnClickListener(){
-            levelChoice(1)
+            emotionChoice(1)
         }
         binding.surpriseButton.setOnClickListener(){
-            levelChoice(2)
+            emotionChoice(2)
         }
         binding.sadButton.setOnClickListener(){
-            levelChoice(3)
+            emotionChoice(3)
         }
         binding.dislikeButton.setOnClickListener(){
-            levelChoice(4)
+            emotionChoice(4)
         }
         binding.interestButton.setOnClickListener(){
-            levelChoice(5)
+            emotionChoice(5)
         }
         binding.joyButton.setOnClickListener(){
-            levelChoice(6)
+            emotionChoice(6)
         }
         binding.trustButton.setOnClickListener(){
-            levelChoice(7)
+            emotionChoice(7)
         }
 
-        binding.choiceButton.setOnClickListener(){
-            callbacks?.onEmotionSelected()
-        }
 
     }
-    private fun levelChoice(i: Int){
+    private fun emotionChoice(i: Int){
+
         binding.chosenEmotion.text = emotionViewModel.emotions[i].name
         binding.emotionDescription.text = emotionViewModel.emotions[i].description
         binding.lightLevel.text = emotionViewModel.emotions[i].nameLight
@@ -90,7 +87,17 @@ class ChoiceFragment: Fragment() {
                 binding.emotionDescription.text =emotionViewModel.emotions[i].descriptionHard
             }
         }
+
+        binding.choiceButton.setOnClickListener{
+            callbacks?.onEmotionSelected(i)
+        }
     }
+
+    companion object {
+        @JvmStatic
+        fun newInstance() = ChoiceFragment()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

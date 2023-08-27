@@ -20,8 +20,12 @@
     <string name="back">Назад</string>
     <string name="emotion">Эмоция</string>
     <string name="note_description">Напишите заметку, это поможет лучше понять ощущения и взглянуть на ситуацию со стороны. Можете ответить на вопросы:</string>
-    <string name="list1">• какая ситуация на это повляила?</string>
-    <string name="list2">что я хочу сделать под влиянием этой эмоции?</string>
-    <string name="list3">какие мысли были в этот момент?</string>
-    <string name="list4">какие ощущения в теле она вызывает?</string>
+    <string name="list1">• Какая ситуация на это повляила?</string>
+    <string name="list2">• Что я хочу сделать под влиянием этой эмоции?</string>
+    <string name="list3">• Какие мысли были в этот момент?</string>
+    <string name="list4">• Какие ощущения в теле она вызывает?</string>
+    <string name="note_name">Заметка</string>
+    <string name="ready">Готово</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
