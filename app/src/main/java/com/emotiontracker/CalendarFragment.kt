@@ -26,6 +26,8 @@ class CalendarFragment : Fragment() {
     private lateinit var moodRecyclerView: RecyclerView
     private var adapter = MoodAdapter(emptyList())
     private val emotionViewModel: EmotionViewModel by viewModels()
+    private var item: Int  = 0
+    private var selectDate: Long = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,21 +60,24 @@ class CalendarFragment : Fragment() {
             calendar.set(Calendar.MILLISECOND, 0)
             return calendar.timeInMillis
         }
-        binding.calendarView.setOnDateChangeListener{ _, year, month, dayOfMonth ->
 
-            val millis: Long = getDate(year, month, dayOfMonth)
+        binding.calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
 
-            var filterMoods: List<Mood>
+            selectDate = getDate(year, month, dayOfMonth)
+
             emotionViewModel.moodListLiveData.observe(   //используется для регистрации наблюдателя за экземпляром LiveData
                 viewLifecycleOwner,       // определяет время жизни наблюдателя. Владелец жизненного цикла тут фрагмент, viewLifecycleOwner - его интерфейс
-                Observer { moods ->       // Observer -  объект, отвечающий за реакцию на новые данные LiveData - наблюдатель
-                    filterMoods = moods.filter { it.date.time == millis }
-                    updateUI(filterMoods)
+                Observer { moods: List<Mood> ->       // Observer -  объект, отвечающий за реакцию на новые данные LiveData - наблюдатель
+                    moods.forEach {
+                        if (it.date.time == selectDate) {
+                            item = moods.indexOf(it)
+                            moodRecyclerView.smoothScrollToPosition(item)
+                        }
+                    }
                 }
             )
         }
     }
-
 
     private fun updateUI(moods: List<Mood>){
         adapter = MoodAdapter(moods)
@@ -85,7 +90,6 @@ class CalendarFragment : Fragment() {
         private val moodNote: TextView = itemView.findViewById(R.id.mood_note)
         private val moodName: TextView = itemView.findViewById(R.id.mood_name)
         private val moodCard: CardView = itemView.findViewById(R.id.item_card)
-        var i = adapterPosition
 
         @SuppressLint("ResourceAsColor")
         fun bind(mood: Mood){
