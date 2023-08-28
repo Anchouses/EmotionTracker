@@ -1,7 +1,5 @@
 package com.emotiontracker
 
-
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import java.util.Calendar
 import java.util.Date
@@ -18,43 +16,37 @@ class EmotionViewModel : ViewModel()  {
     var note: String? = ""
 
     private val emotionRepository = EmotionRepository.get()
-    private val moodIdLiveData = MutableLiveData<Int>()
 
     val moodListLiveData = emotionRepository.getMoods()
-
-
-    fun loadMood(id: Int) {
-        moodIdLiveData.value = id
-    }
 
     fun addMood(mood: Mood) {
         emotionRepository.addMood(mood)
     }
 
     val emotions = listOf(
-        Emotion(0,"Злость", "Раздраженно-враждебное состояние", "#FFDC5959"),
-        Emotion(1, "Досада", "Раздражение и неудовольствие из-за неудачи", "#FFDC5959"),
-        Emotion(2, "Гнев","Бурная реакция негодования. Желание разрушения и проявления агрессии", "#FFDC5959"),
-        Emotion(3,"Страх", "Состояние, вызванное реальной или предполагаемой опасностью", "#FF34B68D"),
-        Emotion(4,"Тревога","Ощущение неопределенности, ожидание неприятных событий", "#FF34B68D"),
-        Emotion(5,"Ужас","Сильный, всепоглощающий страх", "#FF34B68D"),
-        Emotion(6,"Удивление", "Реакция на новое или неожиданное", "#FF00BCD4"),
-        Emotion(7,"Отвлечение","Снижение концентрации и перенос внимания на что-то другое", "#FF00BCD4"),
-        Emotion(8,"Изумление","Крайняя степень удивления, вызывающая полную концентрацию на ситуации", "#FF00BCD4"),
-        Emotion(9,"Грусть", "Неудовлетворенность в каких-либо аспектах жизни", "#FF6C80F3"),
-        Emotion(10,"Печаль","Спокойное переживание утраты, погруженность в себя", "#FF6C80F3"),
-        Emotion(11,"Горе","Интенсивное переживание глубокой утраты", "#FF6C80F3"),
-        Emotion(12,"Неприязнь", "Эмоциональное нежелание признавать или принять", "#FFDE79EF"),
-        Emotion(13,"Неодобрение","Чувство неудовлетворенности чьими-то действиями или ситуацией", "#FFDE79EF"),
-        Emotion(14,"Отвращение","Высшая степень неприязни, часто с физиологическими проявлениями", "#FFDE79EF"),
-        Emotion(15,"Предвосхищение", "Ожидание или готовность к чему-либо", "#FFF88E64"),
-        Emotion(16,"Интерес","Проявление внимания к чему-то значимому", "#FFF88E64"),
-        Emotion(17,"Бдительность","Концентрация внимания, готовность реагировать на ситуацию", "#FFF88E64"),
-        Emotion(18,"Радость", "Внутреннее чувство удовлетворения и удовольствия", "#FFFFEB3B"),
-        Emotion(19,"Безмятежность", "Состояние умиротворения и гармонии", "#FFFFEB3B"),
-        Emotion(20,"Восторг","Сильный всплеск радостных чувств","#FFFFEB3B"),
-        Emotion(21,"Доверие", "Уверенность в безопасности и благоприятности ситуации", "#FFABF359"),
-        Emotion(22,"Одобрение", "Признание ситуации хорошей и правильной", "#FFABF359"),
-        Emotion(23,"Восхищение", "Позитивная реакция на талант, умения и красоту", "#FFABF359"))
+        Emotion(0,"Злость", R.string.angry_description, R.color.angry),
+        Emotion(1, "Досада", R.string.angry_light_description, R.color.angry),
+        Emotion(2, "Гнев",R.string.angry_hard_description, R.color.angry),
+        Emotion(3,"Страх", R.string.fear_description, R.color.fear),
+        Emotion(4,"Тревога",R.string.fear_light_description, R.color.fear),
+        Emotion(5,"Ужас",R.string.fear_hard_description, R.color.fear),
+        Emotion(6,"Удивление", R.string.surprise_description, R.color.surprise),
+        Emotion(7,"Отвлечение",R.string.surprise_light_description, R.color.surprise),
+        Emotion(8,"Изумление",R.string.surprise_hard_description, R.color.surprise),
+        Emotion(9,"Грусть", R.string.sad_description, R.color.sad),
+        Emotion(10,"Печаль",R.string.sad_light_description, R.color.sad),
+        Emotion(11,"Горе",R.string.sad_hard_description, R.color.sad),
+        Emotion(12,"Неприязнь", R.string.dislike_description, R.color.dislike),
+        Emotion(13,"Неодобрение",R.string.dislike_light_description, R.color.dislike),
+        Emotion(14,"Отвращение",R.string.dislike_hard_description, R.color.dislike),
+        Emotion(15,"Предвосхищение", R.string.interest_description, R.color.interest),
+        Emotion(16,"Интерес",R.string.interest_light_description, R.color.interest),
+        Emotion(17,"Бдительность",R.string.interest_hard_description, R.color.interest),
+        Emotion(18,"Радость", R.string.joy_description, R.color.joy),
+        Emotion(19,"Безмятежность", R.string.joy_light_description, R.color.joy),
+        Emotion(20,"Восторг",R.string.joy_hard_description,R.color.joy),
+        Emotion(21,"Доверие", R.string.trust_description, R.color.trust),
+        Emotion(22,"Одобрение", R.string.trust_light_description, R.color.trust),
+        Emotion(23,"Восхищение", R.string.trust_hard_description, R.color.trust))
 
 }

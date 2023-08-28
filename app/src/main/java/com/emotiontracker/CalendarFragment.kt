@@ -1,7 +1,6 @@
 package com.emotiontracker
 
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.os.Bundle
 import android.text.format.DateFormat
 import android.view.LayoutInflater
@@ -96,7 +95,8 @@ class CalendarFragment : Fragment() {
             moodDate.text = DateFormat.format("dd.MM.yy", mood.date).toString()
             moodName.text = emotionViewModel.emotions[mood.emotionId].name
             moodNote.text = mood.note
-            moodCard.setCardBackgroundColor(Color.parseColor(emotionViewModel.emotions[mood.emotionId].color))
+            moodCard.setCardBackgroundColor(resources.getColorStateList(emotionViewModel.emotions[mood.emotionId].color,
+                context?.theme))
         }
     }
 

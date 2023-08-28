@@ -2,28 +2,13 @@ package com.emotiontracker
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.text.format.DateFormat
 import android.text.format.DateFormat.format
-import android.text.format.DateFormat.getBestDateTimePattern
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.emotiontracker.databinding.ChoiceFragmentBinding
-import java.text.DateFormat.getDateInstance
-import java.time.LocalDate
-import java.time.Month
-import java.time.Year
-import java.util.Calendar
-import java.util.Calendar.DATE
-import java.util.Calendar.HOUR
-import java.util.Calendar.MILLISECOND
-import java.util.Calendar.MINUTE
-import java.util.Calendar.MONTH
-import java.util.Calendar.SECOND
-import java.util.Calendar.YEAR
-import java.util.Locale
 
 class ChoiceFragment: Fragment() {
 
@@ -84,7 +69,7 @@ class ChoiceFragment: Fragment() {
 
     private fun emotionChoice(i: Int){
         binding.chosenEmotion.text = emotionViewModel.emotions[i].name
-        binding.emotionDescription.text = emotionViewModel.emotions[i].description
+        binding.emotionDescription.text = getString(emotionViewModel.emotions[i].description)
         binding.lightLevel.text = emotionViewModel.emotions[i+1].name
         binding.middleLevel.text = emotionViewModel.emotions[i].name
         binding.hardLevel.text = emotionViewModel.emotions[i+2].name
@@ -92,15 +77,15 @@ class ChoiceFragment: Fragment() {
         binding.radioGroup.setOnCheckedChangeListener { _, _ ->
             if (binding.lightLevel.isChecked) {
                 binding.chosenEmotion.text = emotionViewModel.emotions[i+1].name
-                binding.emotionDescription.text = emotionViewModel.emotions[i+1].description
+                binding.emotionDescription.text = getString(emotionViewModel.emotions[i+1].description)
             }
             if (binding.middleLevel.isChecked) {
                 binding.chosenEmotion.text = emotionViewModel.emotions[i].name
-                binding.emotionDescription.text = emotionViewModel.emotions[i].description
+                binding.emotionDescription.text = getString(emotionViewModel.emotions[i].description)
             }
             if (binding.hardLevel.isChecked) {
                 binding.chosenEmotion.text = emotionViewModel.emotions[i+2].name
-                binding.emotionDescription.text = emotionViewModel.emotions[i+2].description
+                binding.emotionDescription.text = getString(emotionViewModel.emotions[i+2].description)
             }
         }
 
