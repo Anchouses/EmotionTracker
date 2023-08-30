@@ -89,14 +89,18 @@ class CalendarFragment : Fragment() {
         private val moodNote: TextView = itemView.findViewById(R.id.mood_note)
         private val moodName: TextView = itemView.findViewById(R.id.mood_name)
         private val moodCard: CardView = itemView.findViewById(R.id.item_card)
+        private var emotionClassName: String? = null
+        private var emotionClass: Emotion? = null
 
         @SuppressLint("ResourceAsColor")
         fun bind(mood: Mood){
             moodDate.text = DateFormat.format("dd.MM.yy", mood.date).toString()
-            moodName.text = emotionViewModel.emotions[mood.emotionId].name
+            emotionClassName = mood.simpleName
+            emotionClass = Emotion.getFromSimpleName(emotionClassName!!)
+            moodName.text = emotionClass?.name
             moodNote.text = mood.note
-            moodCard.setCardBackgroundColor(resources.getColorStateList(emotionViewModel.emotions[mood.emotionId].color,
-                context?.theme))
+            moodCard.setCardBackgroundColor(
+                emotionClass?.color?.let { resources.getColorStateList(it, null) })
         }
     }
 

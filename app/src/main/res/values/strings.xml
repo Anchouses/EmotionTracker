@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">EmotionTracker</string>
     <string name="how_you_feel_now">Что вы сейчас чувствуете?</string>
-    <string name="greeting">Привет, name!</string>
+    <string name="greeting">Привет!</string>
     <string name="angry">Злость</string>
     <string name="fear">Страх</string>
     <string name="surprise">Удивление</string>
@@ -54,4 +54,5 @@
     <string name="trust_description">Уверенность в безопасности и благоприятности ситуации</string>
     <string name="trust_light_description">Признание ситуации хорошей и правильной</string>
     <string name="trust_hard_description">Позитивная реакция на талант, умения и красоту</string>
+    <string name="choose_intensity">Выберите интенсивность эмоции</string>
 </resources>
