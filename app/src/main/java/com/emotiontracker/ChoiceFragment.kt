@@ -14,7 +14,7 @@ import com.emotiontracker.databinding.ChoiceFragmentBinding
 class ChoiceFragment: Fragment() {
 
     interface Callbacks{
-        fun onEmotionSelected(emotionClass: Emotion)
+        fun onEmotionSelected(emotion: String)
     }
     private var callbacks: Callbacks? = null
 
@@ -77,7 +77,7 @@ class ChoiceFragment: Fragment() {
             if (emotionClass == null){
                 Toast.makeText(context, R.string.choose_intensity, Toast.LENGTH_LONG).show()
             } else {
-                callbacks?.onEmotionSelected(emotionClass)
+                emotionClass::class.simpleName?.let { it1 -> callbacks?.onEmotionSelected(it1) }
             }
         }
     }
@@ -85,34 +85,34 @@ class ChoiceFragment: Fragment() {
     private fun emotionChoice(emotion: Emotion){
         emotionViewModel.currentEmotion = emotion
 
-        binding.chosenEmotion.text = emotion.name
+        binding.chosenEmotion.text = getString(emotion.name)
 
         val (low, average, strong) = emotion.getIntensity()
 
         binding.emotionDescription.text = getString(emotion.description)
-        binding.lightLevel.text = low.name
-        binding.middleLevel.text = average.name
-        binding.hardLevel.text = strong.name
-        emotionViewModel.name = average.name
+        binding.lightLevel.text = getString(low.name)
+        binding.middleLevel.text = getString(average.name)
+        binding.hardLevel.text = getString(strong.name)
+        emotionViewModel.name = getString(average.name)
 
         binding.radioGroup.setOnCheckedChangeListener { _, _ ->
             if (binding.lightLevel.isChecked) {
-                binding.chosenEmotion.text = low.name
+                binding.chosenEmotion.text = getString(low.name)
                 binding.emotionDescription.text = getString(low.description)
                 emotionViewModel.currentEmotion = low
-                emotionViewModel.name = low.name
+                emotionViewModel.name = getString(low.name)
             }
             if (binding.middleLevel.isChecked) {
-                binding.chosenEmotion.text = average.name
+                binding.chosenEmotion.text = getString(average.name)
                 binding.emotionDescription.text = getString(average.description)
                 emotionViewModel.currentEmotion = average
-                emotionViewModel.name = average.name
+                emotionViewModel.name = resources.getString(average.name)
             }
             if (binding.hardLevel.isChecked) {
-                binding.chosenEmotion.text = strong.name
+                binding.chosenEmotion.text = getString(strong.name)
                 binding.emotionDescription.text = getString(strong.description)
                 emotionViewModel.currentEmotion = strong
-                emotionViewModel.name = strong.name
+                emotionViewModel.name = getString(strong.name)
             }
 
         }

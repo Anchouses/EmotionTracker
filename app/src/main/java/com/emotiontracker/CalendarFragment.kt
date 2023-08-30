@@ -24,7 +24,7 @@ class CalendarFragment : Fragment() {
 
     private lateinit var moodRecyclerView: RecyclerView
     private var adapter = MoodAdapter(emptyList())
-    private val emotionViewModel: EmotionViewModel by viewModels()
+    private val calendarViewModel: CalendarViewModel by viewModels()
     private var item: Int  = 0
     private var selectDate: Long = 0
 
@@ -41,7 +41,7 @@ class CalendarFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        emotionViewModel.moodListLiveData.observe(viewLifecycleOwner) { moods ->
+        calendarViewModel.moodListLiveData.observe(viewLifecycleOwner) { moods ->
             moods?.let {
                 updateUI(moods)
             }
@@ -64,7 +64,7 @@ class CalendarFragment : Fragment() {
 
             selectDate = getDate(year, month, dayOfMonth)
 
-            emotionViewModel.moodListLiveData.observe(   //используется для регистрации наблюдателя за экземпляром LiveData
+            calendarViewModel.moodListLiveData.observe(   //используется для регистрации наблюдателя за экземпляром LiveData
                 viewLifecycleOwner,       // определяет время жизни наблюдателя. Владелец жизненного цикла тут фрагмент, viewLifecycleOwner - его интерфейс
                 Observer { moods: List<Mood> ->       // Observer -  объект, отвечающий за реакцию на новые данные LiveData - наблюдатель
                     moods.forEach {
@@ -97,7 +97,7 @@ class CalendarFragment : Fragment() {
             moodDate.text = DateFormat.format("dd.MM.yy", mood.date).toString()
             emotionClassName = mood.simpleName
             emotionClass = Emotion.getFromSimpleName(emotionClassName!!)
-            moodName.text = emotionClass?.name
+            moodName.text = emotionClass?.name?.let { getString(it) }
             moodNote.text = mood.note
             moodCard.setCardBackgroundColor(
                 emotionClass?.color?.let { resources.getColorStateList(it, null) })

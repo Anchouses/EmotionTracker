@@ -3,7 +3,7 @@ package com.emotiontracker
 import java.io.Serializable
 
 sealed class Emotion: Serializable {
-    abstract val name: String
+    abstract val name: Int
     abstract val description: Int
     abstract val color: Int
 
@@ -16,15 +16,15 @@ sealed class Emotion: Serializable {
             return Triple(Frustration(), Anger(), Rage())
         }
         class Frustration: Angry() {
-            override val name: String = "Досада"
+            override val name: Int = R.string.frustration
             override val description: Int = R.string.angry_light_description
         }
         class Anger: Angry() {
-            override val name: String = "Злость"
+            override val name: Int = R.string.angry
             override val description: Int = R.string.angry_description
         }
         class Rage: Angry() {
-            override val name: String = "Гнев"
+            override val name: Int = R.string.rage
             override val description: Int = R.string.angry_hard_description
         }
     }
@@ -37,15 +37,15 @@ sealed class Emotion: Serializable {
         }
 
         class Anxiety: Fearing() {
-            override val name: String = "Тревога"
+            override val name: Int = R.string.anxiety
             override val description: Int = R.string.fear_light_description
         }
         class Fear: Fearing() {
-            override val name: String = "Страх"
+            override val name: Int = R.string.fear
             override val description: Int = R.string.fear_description
         }
         class Horror: Fearing() {
-            override val name: String = "Ужас"
+            override val name: Int = R.string.horror
             override val description: Int = R.string.fear_hard_description
         }
     }
@@ -58,15 +58,15 @@ sealed class Emotion: Serializable {
             return Triple(Distraction(), Surprise(), Astonishment())
         }
         class Distraction: Surprising() {
-            override val name: String = "Отвлечение"
+            override val name: Int = R.string.distraction
             override val description: Int = R.string.surprise_light_description
         }
         class Surprise: Surprising() {
-            override val name: String = "Удивление"
+            override val name: Int = R.string.surprise
             override val description: Int = R.string.surprise_description
         }
         class Astonishment: Surprising() {
-            override val name: String = "Изумление"
+            override val name: Int = R.string.astonishment
             override val description: Int = R.string.surprise_hard_description
         }
     }
@@ -79,15 +79,15 @@ sealed class Emotion: Serializable {
             return Triple(Blue(), Sad(), Grief())
         }
         class Blue : Sadness() {
-            override val name: String = "Печаль"
+            override val name: Int = R.string.blue
             override val description: Int = R.string.sad_light_description
         }
         class Sad : Sadness() {
-            override val name: String = "Грусть"
+            override val name: Int = R.string.sad
             override val description: Int = R.string.sad_description
         }
         class Grief : Sadness() {
-            override val name: String = "Горе"
+            override val name: Int = R.string.grief
             override val description: Int = R.string.sad_hard_description
         }
     }
@@ -100,15 +100,15 @@ sealed class Emotion: Serializable {
             return Triple(Disapproval(), Dislike(), Disgust())
         }
         class Disapproval : Aversion() {
-            override val name: String = "Неодобрение"
+            override val name: Int = R.string.disapproval
             override val description: Int = R.string.dislike_light_description
         }
         class Dislike: Aversion() {
-            override val name: String = "Неприязнь"
+            override val name: Int = R.string.dislike
             override val description: Int = R.string.dislike_description
         }
         class Disgust: Aversion() {
-            override val name: String = "Отвращение"
+            override val name: Int = R.string.disgust
             override val description: Int = R.string.dislike_hard_description
         }
     }
@@ -121,15 +121,15 @@ sealed class Emotion: Serializable {
             return Triple(Interest(), Anticipation(), Vigilance())
         }
         class Interest : Interesting() {
-            override val name: String = "Интерес"
+            override val name: Int = R.string.interest
             override val description: Int = R.string.interest_light_description
         }
         class Anticipation : Interesting() {
-            override val name: String = "Предвосхищение"
+            override val name: Int = R.string.anticipation
             override val description: Int = R.string.interest_description
         }
         class Vigilance : Interesting() {
-            override val name: String = "Бдительность"
+            override val name: Int = R.string.vigilance
             override val description: Int = R.string.interest_hard_description
         }
     }
@@ -142,15 +142,15 @@ sealed class Emotion: Serializable {
             return Triple(Serenity(), Joy(), Delight())
         }
         class Serenity: Glad() {
-            override val name: String = "Безмятежность"
+            override val name: Int = R.string.serenity
             override val description: Int = R.string.joy_light_description
         }
         class Joy: Glad() {
-            override val name: String = "Радость"
+            override val name: Int = R.string.joy
             override val description: Int = R.string.joy_description
         }
         class Delight: Glad() {
-            override val name: String = "Восторг"
+            override val name: Int = R.string.delight
             override val description: Int = R.string.joy_hard_description
         }
     }
@@ -159,18 +159,18 @@ sealed class Emotion: Serializable {
         override val color: Int = R.color.trust
 
         override fun getIntensity(): Triple<Emotion, Emotion, Emotion> {
-            return Triple(Apprival(), Trust(), Admiratoin())
+            return Triple(Approval(), Trust(), Admiration())
         }
-        class Apprival: Trusting() {
-            override val name: String = "Одобрение"
+        class Approval: Trusting() {
+            override val name: Int = R.string.approval
             override val description: Int = R.string.trust_light_description
         }
         class Trust: Trusting() {
-            override val name: String = "Доверие"
+            override val name: Int = R.string.trust
             override val description: Int = R.string.trust_description
         }
-        class Admiratoin: Trusting() {
-            override val name: String = "Восхищение"
+        class Admiration: Trusting() {
+            override val name: Int = R.string.admiration
             override val description: Int = R.string.trust_hard_description
         }
     }
@@ -200,8 +200,8 @@ sealed class Emotion: Serializable {
                 Glad.Serenity(),
                 Glad.Delight(),
                 Trusting.Trust(),
-                Trusting.Apprival(),
-                Trusting.Admiratoin()
+                Trusting.Approval(),
+                Trusting.Admiration()
             )
         }
 

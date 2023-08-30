@@ -23,8 +23,8 @@ class MainActivity : AppCompatActivity(), ChoiceFragment.Callbacks, NoteFragment
         }
     }
 
-    override fun onEmotionSelected(emotionClass: Emotion) {
-        val fragment = NoteFragment.newInstance(emotionClass)
+    override fun onEmotionSelected(emotion: String) {
+        val fragment = NoteFragment.newInstance(emotion)
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragmentContainerView, fragment)

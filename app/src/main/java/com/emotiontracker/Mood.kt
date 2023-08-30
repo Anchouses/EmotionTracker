@@ -9,7 +9,7 @@ import java.util.Date
 data class Mood(
     @PrimaryKey(autoGenerate = true)
     var id: Int?,
-    @ColumnInfo(name = "emotionClassName")
+    @ColumnInfo(name = "emotionSimpleName")
     val simpleName: String?,
     @ColumnInfo(name = "note")
     val note: String?,

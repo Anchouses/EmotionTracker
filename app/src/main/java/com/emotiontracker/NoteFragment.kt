@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.emotiontracker.databinding.NoteFragmentBinding
 
-private const val EMOTION_CLASS = "emotionClass"
+private const val EMOTION = "emotion"
 
 class NoteFragment: Fragment() {
 
@@ -27,7 +27,7 @@ class NoteFragment: Fragment() {
     private val binding: NoteFragmentBinding
         get() = _binding!!
 
-    private val emotionViewModel: EmotionViewModel by viewModels()
+    private val noteViewModel: NoteViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,11 +43,12 @@ class NoteFragment: Fragment() {
 
         callbacks = activity as Callbacks
 
-        val emotionClass: Emotion? = requireArguments().getSerializable(EMOTION_CLASS, Emotion::class.java)
-        val emotionClassName = emotionClass!!::class.simpleName
-        //val emotionClass = Emotion.getFromSimpleName(emotionClassName!!)
+        val emotion: String? = requireArguments().getString(EMOTION)
+        //val emotionClassName = emotionClass!!::class.simpleName
+        val emotionClass = emotion?.let { Emotion.getFromSimpleName(it) }
 
-        binding.emotionName.text = emotionClass.name
+
+        binding.emotionName.text = emotionClass?.name?.let { getString(it) }
 
         val textWatcher = object: TextWatcher {
             override fun beforeTextChanged(sequence: CharSequence?,
@@ -61,7 +62,7 @@ class NoteFragment: Fragment() {
                                        start: Int,
                                        before: Int,
                                        count: Int) {
-                emotionViewModel.note = sequence.toString()
+                noteViewModel.note = sequence.toString()
             }
 
             override fun afterTextChanged(sequence: Editable?) {
@@ -79,8 +80,8 @@ class NoteFragment: Fragment() {
         }
 
         binding.saveNote.setOnClickListener{
-            val mood = Mood(id = null, emotionClassName, emotionViewModel.note, emotionViewModel.date)
-            emotionViewModel.addMood(mood)
+            val mood = Mood(id = null, emotion, noteViewModel.note, noteViewModel.date)
+            noteViewModel.addMood(mood)
 
             callbacks?.onSaveNoteSelected()
         }
@@ -88,11 +89,11 @@ class NoteFragment: Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(emotionClass: Emotion) =
+        fun newInstance(emotion: String) =
             NoteFragment()
                 .apply {
                     arguments = Bundle().apply {
-                        putSerializable(EMOTION_CLASS, emotionClass)
+                        putString(EMOTION, emotion)
                     }
                 }
     }
