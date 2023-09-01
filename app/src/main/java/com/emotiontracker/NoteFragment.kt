@@ -1,17 +1,18 @@
 package com.emotiontracker
 
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.emotiontracker.databinding.NoteFragmentBinding
-import java.util.UUID
 
-private const val EMOTION_ID = "emotion_id"
+private const val EMOTION = "emotion"
 
 class NoteFragment: Fragment() {
 
@@ -26,7 +27,7 @@ class NoteFragment: Fragment() {
     private val binding: NoteFragmentBinding
         get() = _binding!!
 
-    private val emotionViewModel: EmotionViewModel by viewModels()
+    private val noteViewModel: NoteViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,13 +38,17 @@ class NoteFragment: Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         callbacks = activity as Callbacks
 
-        val emotionId = requireArguments().getInt(EMOTION_ID)
+        val emotion: String? = requireArguments().getString(EMOTION)
+        //val emotionClassName = emotionClass!!::class.simpleName
+        val emotionClass = emotion?.let { Emotion.getFromSimpleName(it) }
 
-        binding.emotionName.text = emotionViewModel.emotions[emotionId].name
+
+        binding.emotionName.text = emotionClass?.name?.let { getString(it) }
 
         val textWatcher = object: TextWatcher {
             override fun beforeTextChanged(sequence: CharSequence?,
@@ -57,7 +62,7 @@ class NoteFragment: Fragment() {
                                        start: Int,
                                        before: Int,
                                        count: Int) {
-                emotionViewModel.note = sequence.toString()
+                noteViewModel.note = sequence.toString()
             }
 
             override fun afterTextChanged(sequence: Editable?) {
@@ -75,8 +80,8 @@ class NoteFragment: Fragment() {
         }
 
         binding.saveNote.setOnClickListener{
-            val mood = Mood(id = null, emotionId, emotionViewModel.note, emotionViewModel.date)
-            emotionViewModel.addMood(mood)
+            val mood = Mood(id = null, emotion, noteViewModel.note, noteViewModel.date)
+            noteViewModel.addMood(mood)
 
             callbacks?.onSaveNoteSelected()
         }
@@ -84,17 +89,19 @@ class NoteFragment: Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(emotionId: Int) =
-            NoteFragment().apply{
-                arguments = Bundle().apply {
-                    putInt(EMOTION_ID, emotionId)
+        fun newInstance(emotion: String) =
+            NoteFragment()
+                .apply {
+                    arguments = Bundle().apply {
+                        putString(EMOTION, emotion)
+                    }
                 }
-            }
-        }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
-}
+        override fun onDestroyView() {
+            super.onDestroyView()
+            _binding = null
+        }
+
+    }
+

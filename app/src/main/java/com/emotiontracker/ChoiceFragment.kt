@@ -1,40 +1,31 @@
 package com.emotiontracker
 
-import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
-import android.text.format.DateFormat
 import android.text.format.DateFormat.format
-import android.text.format.DateFormat.getBestDateTimePattern
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.emotiontracker.databinding.ChoiceFragmentBinding
-import java.text.DateFormat.getDateInstance
-import java.time.LocalDate
-import java.time.Month
-import java.time.Year
-import java.util.Calendar
-import java.util.Calendar.DATE
-import java.util.Calendar.HOUR
-import java.util.Calendar.MILLISECOND
-import java.util.Calendar.MINUTE
-import java.util.Calendar.MONTH
-import java.util.Calendar.SECOND
-import java.util.Calendar.YEAR
-import java.util.Locale
 
 class ChoiceFragment: Fragment() {
 
     interface Callbacks{
-        fun onEmotionSelected(emotionId: Int)
+        fun onEmotionSelected(emotion: String)
     }
     private var callbacks: Callbacks? = null
 
     private var _binding: ChoiceFragmentBinding? = null
     private val binding: ChoiceFragmentBinding
         get() = _binding!!
+
+    override fun onAttach(context: Context) {   //функция жизненного цикла Fragment - зачем ее переопределять (для установки и отмены свойства callbacks)
+        super.onAttach(context)
+        callbacks = context as Callbacks?
+    }
 
     private val emotionViewModel: EmotionViewModel by viewModels()
 
@@ -47,8 +38,8 @@ class ChoiceFragment: Fragment() {
         return binding.root
     }
 
-    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
 
         callbacks = activity as Callbacks
 
@@ -57,56 +48,75 @@ class ChoiceFragment: Fragment() {
         binding.date.text  = format("Сегодня, dd.MM.yy", now)
 
         binding.angryButton.setOnClickListener{
-            emotionChoice(0)
+            emotionChoice(Emotion.Angry.Anger())
         }
         binding.fearButton.setOnClickListener{
-            emotionChoice(3)
+            emotionChoice(Emotion.Fearing.Fear())
         }
         binding.surpriseButton.setOnClickListener{
-            emotionChoice(6)
+            emotionChoice(Emotion.Surprising.Surprise())
         }
         binding.sadButton.setOnClickListener{
-            emotionChoice(9)
+            emotionChoice(Emotion.Sadness.Sad())
         }
         binding.dislikeButton.setOnClickListener{
-            emotionChoice(12)
+            emotionChoice(Emotion.Aversion.Dislike())
         }
         binding.interestButton.setOnClickListener{
-            emotionChoice(15)
+            emotionChoice(Emotion.Interesting.Anticipation())
         }
         binding.joyButton.setOnClickListener{
-            emotionChoice(18)
+            emotionChoice(Emotion.Glad.Joy())
         }
         binding.trustButton.setOnClickListener{
-            emotionChoice(21)
-        }
-    }
-
-    private fun emotionChoice(i: Int){
-        binding.chosenEmotion.text = emotionViewModel.emotions[i].name
-        binding.emotionDescription.text = emotionViewModel.emotions[i].description
-        binding.lightLevel.text = emotionViewModel.emotions[i+1].name
-        binding.middleLevel.text = emotionViewModel.emotions[i].name
-        binding.hardLevel.text = emotionViewModel.emotions[i+2].name
-
-        binding.radioGroup.setOnCheckedChangeListener { _, _ ->
-            if (binding.lightLevel.isChecked) {
-                binding.chosenEmotion.text = emotionViewModel.emotions[i+1].name
-                binding.emotionDescription.text = emotionViewModel.emotions[i+1].description
-            }
-            if (binding.middleLevel.isChecked) {
-                binding.chosenEmotion.text = emotionViewModel.emotions[i].name
-                binding.emotionDescription.text = emotionViewModel.emotions[i].description
-            }
-            if (binding.hardLevel.isChecked) {
-                binding.chosenEmotion.text = emotionViewModel.emotions[i+2].name
-                binding.emotionDescription.text = emotionViewModel.emotions[i+2].description
-            }
+            emotionChoice(Emotion.Trusting.Trust())
         }
 
         binding.choiceButton.setOnClickListener{
-            callbacks?.onEmotionSelected(i)
+            val emotionClass = emotionViewModel.currentEmotion
+            if (emotionClass == null){
+                Toast.makeText(context, R.string.choose_intensity, Toast.LENGTH_LONG).show()
+            } else {
+                emotionClass::class.simpleName?.let { it1 -> callbacks?.onEmotionSelected(it1) }
+            }
         }
+    }
+
+    private fun emotionChoice(emotion: Emotion){
+        emotionViewModel.currentEmotion = emotion
+
+        binding.chosenEmotion.text = getString(emotion.name)
+
+        val (low, average, strong) = emotion.getIntensity()
+
+        binding.emotionDescription.text = getString(emotion.description)
+        binding.lightLevel.text = getString(low.name)
+        binding.middleLevel.text = getString(average.name)
+        binding.hardLevel.text = getString(strong.name)
+        emotionViewModel.name = getString(average.name)
+
+        binding.radioGroup.setOnCheckedChangeListener { _, _ ->
+            if (binding.lightLevel.isChecked) {
+                binding.chosenEmotion.text = getString(low.name)
+                binding.emotionDescription.text = getString(low.description)
+                emotionViewModel.currentEmotion = low
+                emotionViewModel.name = getString(low.name)
+            }
+            if (binding.middleLevel.isChecked) {
+                binding.chosenEmotion.text = getString(average.name)
+                binding.emotionDescription.text = getString(average.description)
+                emotionViewModel.currentEmotion = average
+                emotionViewModel.name = resources.getString(average.name)
+            }
+            if (binding.hardLevel.isChecked) {
+                binding.chosenEmotion.text = getString(strong.name)
+                binding.emotionDescription.text = getString(strong.description)
+                emotionViewModel.currentEmotion = strong
+                emotionViewModel.name = getString(strong.name)
+            }
+
+        }
+
     }
 
     companion object {

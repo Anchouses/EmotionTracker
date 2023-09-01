@@ -4,7 +4,9 @@ import androidx.lifecycle.ViewModel
 import java.util.Calendar
 import java.util.Date
 
-class EmotionViewModel : ViewModel() {
+class NoteViewModel: ViewModel() {
+
+    var note: String? = ""
 
     var date: Date = Calendar.getInstance().apply {
         set(Calendar.HOUR, 0)
@@ -13,9 +15,9 @@ class EmotionViewModel : ViewModel() {
         set(Calendar.MILLISECOND, 0)
     }.time
 
-    var name: String? = null
-    var currentEmotion: Emotion? = null
-    //var currentEmotionName = currentEmotion::class.simpleName
+    private val emotionRepository = EmotionRepository.get()
 
-
+    fun addMood(mood: Mood) {
+        emotionRepository.addMood(mood)
+    }
 }
