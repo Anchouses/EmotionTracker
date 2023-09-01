@@ -13,7 +13,11 @@ class ChoiceViewModel : ViewModel() {
 
     var navigator: NavigateToSomeFragment? = null
 
-    fun navigateChoiceViewModel(fragmentNavigator: FragmentNavigator){
+    fun initViewModel(fragmentNavigator: FragmentNavigator){
         this.navigator = fragmentNavigator
+    }
+
+    fun onForward(emotionClassName: String){
+        navigator?.showNoteFragment(emotionClassName)
     }
 }

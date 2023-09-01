@@ -39,11 +39,10 @@ class CalendarFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        calendarViewModel.navigateCalendarViewModel(FragmentNavigator(requireActivity() as AppCompatActivity))
+        calendarViewModel.initViewModel(FragmentNavigator(requireActivity() as AppCompatActivity))
 
         calendarViewModel.moodListLiveData.observe(viewLifecycleOwner) { moods ->
             moods?.let {
-                calendarViewModel.listMoods = it
                 updateUI(moods)
             }
         }
@@ -55,7 +54,7 @@ class CalendarFragment : Fragment() {
         }
 
         binding.buttonBack.setOnClickListener{
-            calendarViewModel.navigator?.showChoiceFragment()
+            calendarViewModel.onButtonBack()
         }
     }
 

@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.emotiontracker.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity()  { //ChoiceFragment.Callbacks, NoteFragment.Callbacks
+class MainActivity : AppCompatActivity()  {
 
     private lateinit var  binding: ActivityMainBinding
     private val fragmentNavigator = FragmentNavigator(this)
@@ -18,11 +18,4 @@ class MainActivity : AppCompatActivity()  { //ChoiceFragment.Callbacks, NoteFrag
         fragmentNavigator.showChoiceFragment()
     }
 
-//    override fun onEmotionSelected(emotionClassName: String) {
-//        fragmentNavigator.showNoteFragment(emotionClassName)
-//    }
-
-//    override fun onSaveNoteSelected() {
-//        fragmentNavigator.showCalendarFragment()
-//    }
 }

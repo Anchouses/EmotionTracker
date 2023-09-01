@@ -12,7 +12,7 @@ class CalendarViewModel: ViewModel() {
     private val calendar = Calendar.getInstance()
     var selectDate: Long = 0
     var item: Int = 0
-    var listMoods: List<Mood> = emptyList()
+
     fun getDate(year: Int, month: Int, day: Int): Long {
         calendar.set(Calendar.YEAR, year)
         calendar.set(Calendar.MONTH, month)
@@ -25,7 +25,8 @@ class CalendarViewModel: ViewModel() {
     }
 
     fun getDateItem(selectDate: Long) {
-        listMoods.forEach {
+        val listMoods = moodListLiveData.value
+        listMoods?.forEach {
             if (it.date.time == selectDate) {
                 item = listMoods.indexOf(it)
             }
@@ -34,9 +35,11 @@ class CalendarViewModel: ViewModel() {
 
     var navigator: NavigateToSomeFragment? = null
 
-    fun navigateCalendarViewModel(fragmentNavigator: FragmentNavigator){
+    fun initViewModel(fragmentNavigator: FragmentNavigator){
         this.navigator = fragmentNavigator
     }
 
-
+    fun onButtonBack(){
+        navigator?.showChoiceFragment()
+    }
 }

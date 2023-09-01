@@ -32,7 +32,7 @@ class NoteFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        noteViewModel.navigateNoteViewModel(FragmentNavigator(requireActivity() as AppCompatActivity))
+        noteViewModel.initViewModel(FragmentNavigator(requireActivity() as AppCompatActivity))
 
         val emotionClassName: String? = requireArguments().getString(EMOTION)
 
@@ -60,14 +60,14 @@ class NoteFragment: Fragment() {
         binding.editNote.addTextChangedListener(textWatcher)   //Добавляем TextWatcher в список методов, которые вызываются при изменении текста TextView.
 
         binding.buttonBack.setOnClickListener{
-            noteViewModel.navigator?.showChoiceFragment()
+            noteViewModel.onButtonBack()
         }
 
         binding.saveNote.setOnClickListener{
             val mood = Mood(id = null, emotionClassName, noteViewModel.note, noteViewModel.date)
             noteViewModel.addMood(mood)
 
-            noteViewModel.navigator?.showCalendarFragment()
+            noteViewModel.onForward()
         }
     }
 

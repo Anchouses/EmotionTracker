@@ -70,5 +70,5 @@
     <string name="trust_description">Уверенность в безопасности и благоприятности ситуации</string>
     <string name="trust_light_description">Признание ситуации хорошей и правильной</string>
     <string name="trust_hard_description">Позитивная реакция на талант, умения и красоту</string>
-    <string name="choose_intensity">Выберите интенсивность эмоции</string>
+    <string name="choose_intensity">Выберите, пожалуйста, эмоцию</string>
 </resources>

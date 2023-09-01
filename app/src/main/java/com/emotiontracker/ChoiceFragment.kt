@@ -29,7 +29,8 @@ class ChoiceFragment: Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        choiceViewModel.navigateChoiceViewModel(FragmentNavigator(requireActivity() as AppCompatActivity))
+
+        choiceViewModel.initViewModel(FragmentNavigator(requireActivity() as AppCompatActivity))
 
         val now = choiceViewModel.date
 
@@ -65,8 +66,10 @@ class ChoiceFragment: Fragment() {
             if (emotionClass == null){
                 Toast.makeText(context, R.string.choose_intensity, Toast.LENGTH_LONG).show()
             } else {
-                emotionClass::class.simpleName?.let { it1 ->
-                choiceViewModel.navigator?.showNoteFragment(it1)}
+                val emotionClassName = emotionClass::class.simpleName
+                if (emotionClassName != null) {
+                    choiceViewModel.onForward(emotionClassName)
+                }
             }
         }
     }
