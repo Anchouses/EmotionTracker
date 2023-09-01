@@ -2,6 +2,9 @@ package com.emotiontracker
 
 
 import androidx.lifecycle.ViewModel
+import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneId
 import java.util.Calendar
 
 
@@ -11,26 +14,35 @@ class CalendarViewModel: ViewModel() {
     val moodListLiveData = emotionRepository.getMoods()
     private val calendar = Calendar.getInstance()
     var selectDate: Long = 0
-    var item: Int = 0
+    var item = 0
 
     fun getDate(year: Int, month: Int, day: Int): Long {
         calendar.set(Calendar.YEAR, year)
         calendar.set(Calendar.MONTH, month)
         calendar.set(Calendar.DATE, day)
-        calendar.set(Calendar.HOUR, 0)
-        calendar.set(Calendar.MINUTE, 0)
-        calendar.set(Calendar.SECOND, 0)
-        calendar.set(Calendar.MILLISECOND, 0)
         return calendar.timeInMillis
     }
 
-    fun getDateItem(selectDate: Long) {
+    fun getDateItem(selectDate: Long): Int {
+
+        val selectLocalDate: LocalDate = Instant
+            .ofEpochMilli(selectDate)
+            .atZone(ZoneId.systemDefault())
+            .toLocalDate()
+
         val listMoods = moodListLiveData.value
         listMoods?.forEach {
-            if (it.date.time == selectDate) {
+
+            val saveDate: LocalDate = Instant
+                .ofEpochMilli(it.date.time)
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate()
+
+            if (saveDate == selectLocalDate) {
                 item = listMoods.indexOf(it)
             }
         }
+        return item
     }
 
     var navigator: NavigateToSomeFragment? = null
