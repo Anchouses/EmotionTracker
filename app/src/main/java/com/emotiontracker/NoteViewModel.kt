@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import java.util.Calendar
 import java.util.Date
 
-class NoteViewModel: ViewModel() {
+class NoteViewModel: ViewModel()  {  //NavigateToSomeFragment
 
     var note: String? = ""
 
@@ -20,4 +20,11 @@ class NoteViewModel: ViewModel() {
     fun addMood(mood: Mood) {
         emotionRepository.addMood(mood)
     }
+
+    var navigator: NavigateToSomeFragment? = null
+
+    fun navigateNoteViewModel(fragmentNavigator: FragmentNavigator) {
+        this.navigator = fragmentNavigator
+    }
+
 }

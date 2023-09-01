@@ -1,8 +1,7 @@
 package com.emotiontracker
 
-import java.io.Serializable
 
-sealed class Emotion: Serializable {
+sealed class Emotion {
     abstract val name: Int
     abstract val description: Int
     abstract val color: Int
@@ -209,6 +208,5 @@ sealed class Emotion: Serializable {
             return getAllEmotions().find { it::class.simpleName == name }
         }
     }
-
 }
 

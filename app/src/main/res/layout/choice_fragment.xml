@@ -208,6 +208,7 @@
             android:layout_height="24dp"
             android:layout_gravity="top"
             android:gravity="center"
+            android:textColor="@color/black"
             android:text="@string/date" />
 
         <TextView

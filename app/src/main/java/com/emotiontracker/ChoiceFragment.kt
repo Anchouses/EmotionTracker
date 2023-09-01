@@ -1,33 +1,23 @@
 package com.emotiontracker
 
-import android.content.Context
 import android.os.Bundle
 import android.text.format.DateFormat.format
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.emotiontracker.databinding.ChoiceFragmentBinding
 
 class ChoiceFragment: Fragment() {
 
-    interface Callbacks{
-        fun onEmotionSelected(emotion: String)
-    }
-    private var callbacks: Callbacks? = null
-
     private var _binding: ChoiceFragmentBinding? = null
     private val binding: ChoiceFragmentBinding
         get() = _binding!!
 
-    override fun onAttach(context: Context) {   //функция жизненного цикла Fragment - зачем ее переопределять (для установки и отмены свойства callbacks)
-        super.onAttach(context)
-        callbacks = context as Callbacks?
-    }
-
-    private val emotionViewModel: EmotionViewModel by viewModels()
+    private val choiceViewModel: ChoiceViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,11 +29,9 @@ class ChoiceFragment: Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        choiceViewModel.navigateChoiceViewModel(FragmentNavigator(requireActivity() as AppCompatActivity))
 
-
-        callbacks = activity as Callbacks
-
-        val now = emotionViewModel.date
+        val now = choiceViewModel.date
 
         binding.date.text  = format("Сегодня, dd.MM.yy", now)
 
@@ -73,17 +61,19 @@ class ChoiceFragment: Fragment() {
         }
 
         binding.choiceButton.setOnClickListener{
-            val emotionClass = emotionViewModel.currentEmotion
+            val emotionClass = choiceViewModel.currentEmotion
             if (emotionClass == null){
                 Toast.makeText(context, R.string.choose_intensity, Toast.LENGTH_LONG).show()
             } else {
-                emotionClass::class.simpleName?.let { it1 -> callbacks?.onEmotionSelected(it1) }
+                emotionClass::class.simpleName?.let { it1 ->
+                choiceViewModel.navigator?.showNoteFragment(it1)}
             }
         }
     }
 
     private fun emotionChoice(emotion: Emotion){
-        emotionViewModel.currentEmotion = emotion
+
+        choiceViewModel.currentEmotion = emotion
 
         binding.chosenEmotion.text = getString(emotion.name)
 
@@ -93,30 +83,24 @@ class ChoiceFragment: Fragment() {
         binding.lightLevel.text = getString(low.name)
         binding.middleLevel.text = getString(average.name)
         binding.hardLevel.text = getString(strong.name)
-        emotionViewModel.name = getString(average.name)
 
         binding.radioGroup.setOnCheckedChangeListener { _, _ ->
             if (binding.lightLevel.isChecked) {
                 binding.chosenEmotion.text = getString(low.name)
                 binding.emotionDescription.text = getString(low.description)
-                emotionViewModel.currentEmotion = low
-                emotionViewModel.name = getString(low.name)
+                choiceViewModel.currentEmotion = low
             }
             if (binding.middleLevel.isChecked) {
                 binding.chosenEmotion.text = getString(average.name)
                 binding.emotionDescription.text = getString(average.description)
-                emotionViewModel.currentEmotion = average
-                emotionViewModel.name = resources.getString(average.name)
+                choiceViewModel.currentEmotion = average
             }
             if (binding.hardLevel.isChecked) {
                 binding.chosenEmotion.text = getString(strong.name)
                 binding.emotionDescription.text = getString(strong.description)
-                emotionViewModel.currentEmotion = strong
-                emotionViewModel.name = getString(strong.name)
+                choiceViewModel.currentEmotion = strong
             }
-
         }
-
     }
 
     companion object {
