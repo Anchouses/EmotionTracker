@@ -1,13 +1,12 @@
 package com.emotiontracker
 
-import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.emotiontracker.databinding.NoteFragmentBinding
@@ -15,13 +14,6 @@ import com.emotiontracker.databinding.NoteFragmentBinding
 private const val EMOTION = "emotion"
 
 class NoteFragment: Fragment() {
-
-    interface Callbacks{
-        fun onSaveNoteSelected(){
-        }
-    }
-
-    private var callbacks: Callbacks? = null
 
     private var _binding: NoteFragmentBinding? = null
     private val binding: NoteFragmentBinding
@@ -38,15 +30,13 @@ class NoteFragment: Fragment() {
         return binding.root
     }
 
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        callbacks = activity as Callbacks
+        noteViewModel.initViewModel(FragmentNavigator(requireActivity() as AppCompatActivity))
 
-        val emotion: String? = requireArguments().getString(EMOTION)
-        //val emotionClassName = emotionClass!!::class.simpleName
-        val emotionClass = emotion?.let { Emotion.getFromSimpleName(it) }
+        val emotionClassName: String? = requireArguments().getString(EMOTION)
 
+        val emotionClass = emotionClassName?.let { Emotion.getFromSimpleName(it) }
 
         binding.emotionName.text = emotionClass?.name?.let { getString(it) }
 
@@ -55,7 +45,6 @@ class NoteFragment: Fragment() {
                                            start: Int,
                                            count: Int,
                                            after: Int) {
-                // это оставляем пустым специально
             }
 
             override fun onTextChanged(sequence: CharSequence?,
@@ -66,34 +55,29 @@ class NoteFragment: Fragment() {
             }
 
             override fun afterTextChanged(sequence: Editable?) {
-                //и это
             }
         }
         binding.editNote.addTextChangedListener(textWatcher)   //Добавляем TextWatcher в список методов, которые вызываются при изменении текста TextView.
 
-
         binding.buttonBack.setOnClickListener{
-//            activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true){
-//                override fun handleOnBackPressed(){
-//                }
-//            })
+            noteViewModel.onButtonBack()
         }
 
         binding.saveNote.setOnClickListener{
-            val mood = Mood(id = null, emotion, noteViewModel.note, noteViewModel.date)
+            val mood = Mood(id = null, emotionClassName, noteViewModel.note, noteViewModel.date)
             noteViewModel.addMood(mood)
 
-            callbacks?.onSaveNoteSelected()
+            noteViewModel.onForward()
         }
     }
 
     companion object {
         @JvmStatic
-        fun newInstance(emotion: String) =
+        fun newInstance(emotionClassName: String) =
             NoteFragment()
                 .apply {
                     arguments = Bundle().apply {
-                        putString(EMOTION, emotion)
+                        putString(EMOTION, emotionClassName)
                     }
                 }
     }
