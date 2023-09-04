@@ -1,4 +1,6 @@
-package com.emotiontracker
+package com.emotiontracker.presentation.datasource
+
+import com.emotiontracker.R
 
 
 sealed class Emotion {

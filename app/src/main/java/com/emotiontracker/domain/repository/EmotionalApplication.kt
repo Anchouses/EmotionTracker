@@ -1,4 +1,4 @@
-package com.emotiontracker
+package com.emotiontracker.domain.repository
 
 import android.app.Application
 

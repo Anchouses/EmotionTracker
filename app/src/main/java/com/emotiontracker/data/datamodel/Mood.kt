@@ -1,4 +1,4 @@
-package com.emotiontracker
+package com.emotiontracker.data.datamodel
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -15,6 +15,4 @@ data class Mood(
     val note: String?,
     @ColumnInfo(name = "date")
     val date: Date
-) {
-
-}
+)

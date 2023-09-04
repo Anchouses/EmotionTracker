@@ -1,4 +1,4 @@
-package com.emotiontracker
+package com.emotiontracker.presentation.navigation
 
 interface NavigateToSomeFragment {
 

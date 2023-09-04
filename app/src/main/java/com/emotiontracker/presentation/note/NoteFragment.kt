@@ -1,4 +1,4 @@
-package com.emotiontracker
+package com.emotiontracker.presentation.note
 
 import android.os.Bundle
 import android.text.Editable
@@ -9,9 +9,11 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.emotiontracker.presentation.datasource.Emotion
+import com.emotiontracker.presentation.navigation.FragmentNavigator
 import com.emotiontracker.databinding.NoteFragmentBinding
 
-private const val EMOTION = "emotion"
+const val EMOTION = "emotion"
 
 class NoteFragment: Fragment() {
 
@@ -35,10 +37,11 @@ class NoteFragment: Fragment() {
         noteViewModel.initViewModel(FragmentNavigator(requireActivity() as AppCompatActivity))
 
         val emotionClassName: String? = requireArguments().getString(EMOTION)
-
         val emotionClass = emotionClassName?.let { Emotion.getFromSimpleName(it) }
 
-        binding.emotionName.text = emotionClass?.name?.let { getString(it) }
+         noteViewModel.emotionClassName = emotionClass?.name?.let { getString(it) }
+
+        binding.emotionName.text = noteViewModel.emotionClassName
 
         val textWatcher = object: TextWatcher {
             override fun beforeTextChanged(sequence: CharSequence?,
@@ -46,14 +49,12 @@ class NoteFragment: Fragment() {
                                            count: Int,
                                            after: Int) {
             }
-
             override fun onTextChanged(sequence: CharSequence?,
                                        start: Int,
                                        before: Int,
                                        count: Int) {
                 noteViewModel.note = sequence.toString()
             }
-
             override fun afterTextChanged(sequence: Editable?) {
             }
         }
@@ -64,9 +65,7 @@ class NoteFragment: Fragment() {
         }
 
         binding.saveNote.setOnClickListener{
-            val mood = Mood(id = null, emotionClassName, noteViewModel.note, noteViewModel.date)
-            noteViewModel.addMood(mood)
-
+            noteViewModel.saveEmotion()
             noteViewModel.onForward()
         }
     }

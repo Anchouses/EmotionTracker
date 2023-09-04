@@ -1,7 +1,10 @@
-package com.emotiontracker
+package com.emotiontracker.presentation.choice
 
 
 import androidx.lifecycle.ViewModel
+import com.emotiontracker.presentation.datasource.Emotion
+import com.emotiontracker.presentation.navigation.FragmentNavigator
+import com.emotiontracker.presentation.navigation.NavigateToSomeFragment
 import java.util.Calendar
 import java.util.Date
 

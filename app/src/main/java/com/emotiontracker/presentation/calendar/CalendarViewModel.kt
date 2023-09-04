@@ -1,7 +1,10 @@
-package com.emotiontracker
+package com.emotiontracker.presentation.calendar
 
 
 import androidx.lifecycle.ViewModel
+import com.emotiontracker.domain.EmotionInteractor
+import com.emotiontracker.presentation.navigation.FragmentNavigator
+import com.emotiontracker.presentation.navigation.NavigateToSomeFragment
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
@@ -10,8 +13,8 @@ import java.util.Calendar
 
 class CalendarViewModel: ViewModel() {
 
-    private val emotionRepository = EmotionRepository.get()
-    val moodListLiveData = emotionRepository.getMoods()
+    private val emotionInterator = EmotionInteractor()
+    val moodListLiveData = emotionInterator.getMoods()
     private val calendar = Calendar.getInstance()
     var selectDate: Long = 0
     var item = 0

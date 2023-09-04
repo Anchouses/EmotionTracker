@@ -1,13 +1,11 @@
-package com.emotiontracker.database
+package com.emotiontracker.data.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import com.emotiontracker.Emotion
-import com.emotiontracker.Mood
-import java.util.UUID
+import com.emotiontracker.data.datamodel.Mood
 
 @Dao
 interface EmotionDao {

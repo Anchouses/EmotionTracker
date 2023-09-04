@@ -1,4 +1,4 @@
-package com.emotiontracker
+package com.emotiontracker.presentation.calendar
 
 import android.os.Bundle
 import android.text.format.DateFormat
@@ -10,6 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.emotiontracker.presentation.datasource.Emotion
+import com.emotiontracker.presentation.navigation.FragmentNavigator
+import com.emotiontracker.data.datamodel.Mood
 import com.emotiontracker.databinding.CalendarFragmentBinding
 import com.emotiontracker.databinding.ItemMoodBinding
 

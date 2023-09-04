@@ -1,4 +1,4 @@
-package com.emotiontracker
+package com.emotiontracker.presentation.choice
 
 import android.os.Bundle
 import android.text.format.DateFormat.format
@@ -9,6 +9,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.emotiontracker.presentation.datasource.Emotion
+import com.emotiontracker.presentation.navigation.FragmentNavigator
+import com.emotiontracker.R
 import com.emotiontracker.databinding.ChoiceFragmentBinding
 
 class ChoiceFragment: Fragment() {
@@ -33,7 +36,6 @@ class ChoiceFragment: Fragment() {
         choiceViewModel.initViewModel(FragmentNavigator(requireActivity() as AppCompatActivity))
 
         val now = choiceViewModel.date
-
         binding.date.text  = format("Сегодня, dd.MM.yy", now)
 
         binding.angryButton.setOnClickListener{
