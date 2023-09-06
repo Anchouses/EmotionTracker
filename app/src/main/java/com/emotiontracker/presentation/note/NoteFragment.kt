@@ -13,6 +13,7 @@ import com.emotiontracker.presentation.datasource.Emotion
 import com.emotiontracker.presentation.navigation.FragmentNavigator
 import com.emotiontracker.databinding.NoteFragmentBinding
 
+
 const val EMOTION = "emotion"
 
 class NoteFragment: Fragment() {
@@ -21,8 +22,7 @@ class NoteFragment: Fragment() {
     private val binding: NoteFragmentBinding
         get() = _binding!!
 
-    private val noteViewModel: NoteViewModel by viewModels()
-
+    private val noteViewModel: NoteViewModel by viewModels { NoteViewModel.factory }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -36,12 +36,13 @@ class NoteFragment: Fragment() {
 
         noteViewModel.initViewModel(FragmentNavigator(requireActivity() as AppCompatActivity))
 
-        val emotionClassName: String? = requireArguments().getString(EMOTION)
-        val emotionClass = emotionClassName?.let { Emotion.getFromSimpleName(it) }
+        noteViewModel.emotionClassName = requireArguments().getString(EMOTION)
 
-         noteViewModel.emotionClassName = emotionClass?.name?.let { getString(it) }
+        noteViewModel.emotionClass = noteViewModel.emotionClassName?.let { Emotion.getFromSimpleName(it) }
 
-        binding.emotionName.text = noteViewModel.emotionClassName
+         noteViewModel.emotionName = noteViewModel.emotionClass?.name?.let { getString(it) }
+
+        binding.emotionName.text = noteViewModel.emotionName
 
         val textWatcher = object: TextWatcher {
             override fun beforeTextChanged(sequence: CharSequence?,
@@ -65,7 +66,7 @@ class NoteFragment: Fragment() {
         }
 
         binding.saveNote.setOnClickListener{
-            noteViewModel.saveEmotion()
+            noteViewModel.saveEmotion(noteViewModel.emotionClassName, noteViewModel.note, noteViewModel.date)
             noteViewModel.onForward()
         }
     }

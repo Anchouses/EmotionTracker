@@ -1,11 +1,12 @@
-package com.emotiontracker.domain.repository
+package com.emotiontracker.domain
 
 import androidx.lifecycle.LiveData
 import com.emotiontracker.data.datamodel.Mood
+import java.util.Date
 
 interface RepositoryInterface {
 
-    fun saveEmotion()
+    fun saveEmotion(className: String?, note: String?, date: Date)
 
     fun getMoods(): LiveData<List<Mood>>
 

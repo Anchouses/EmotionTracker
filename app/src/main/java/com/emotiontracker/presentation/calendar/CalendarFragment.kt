@@ -27,7 +27,8 @@ class CalendarFragment : Fragment() {
         get() = _bindingItem!!
 
     private var adapter = MoodAdapter(emptyList())
-    private val calendarViewModel: CalendarViewModel by viewModels()
+
+    private val calendarViewModel: CalendarViewModel by viewModels {CalendarViewModel.factory}
 
 
     override fun onCreateView(
@@ -76,7 +77,7 @@ class CalendarFragment : Fragment() {
 
             fun bind(mood: Mood){
                 val emotionClassName = mood.simpleName
-                val emotionClass: Emotion? = emotionClassName?.let { Emotion.getFromSimpleName(it) }
+                val emotionClass = emotionClassName?.let { Emotion.getFromSimpleName(it) }
                 moodName.text = emotionClass?.name?.let { getString(it) }
                 moodDate.text = DateFormat.format("dd.MM.yy", mood.date).toString()
                 moodNote.text = mood.note
@@ -109,5 +110,7 @@ class CalendarFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+
 }
 

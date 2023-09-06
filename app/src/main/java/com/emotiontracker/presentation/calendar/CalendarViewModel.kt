@@ -1,19 +1,22 @@
 package com.emotiontracker.presentation.calendar
 
-
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.emotiontracker.data.repository.EmotionRepository
 import com.emotiontracker.domain.EmotionInteractor
+import com.emotiontracker.domain.EmotionModel
 import com.emotiontracker.presentation.navigation.FragmentNavigator
-import com.emotiontracker.presentation.navigation.NavigateToSomeFragment
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
 import java.util.Calendar
 
 
-class CalendarViewModel: ViewModel() {
+class CalendarViewModel(
+    emotionInterator: EmotionInteractor,
+    private var fragmentNavigator: FragmentNavigator): ViewModel() {
 
-    private val emotionInterator = EmotionInteractor()
     val moodListLiveData = emotionInterator.getMoods()
     private val calendar = Calendar.getInstance()
     var selectDate: Long = 0
@@ -48,13 +51,26 @@ class CalendarViewModel: ViewModel() {
         return item
     }
 
-    var navigator: NavigateToSomeFragment? = null
-
     fun initViewModel(fragmentNavigator: FragmentNavigator){
-        this.navigator = fragmentNavigator
+        this.fragmentNavigator = fragmentNavigator
     }
 
     fun onButtonBack(){
-        navigator?.showChoiceFragment()
+        fragmentNavigator.showChoiceFragment()
+    }
+
+    companion object {
+
+        val factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
+
+            override fun <T : ViewModel> create(
+                modelClass: Class<T>
+            ): T {
+                val emotionInterator = EmotionInteractor(EmotionRepository.get(), EmotionModel())
+                val fragmentNavigator = FragmentNavigator(activity = AppCompatActivity())
+
+                return CalendarViewModel(emotionInterator, fragmentNavigator) as T
+            }
+        }
     }
 }

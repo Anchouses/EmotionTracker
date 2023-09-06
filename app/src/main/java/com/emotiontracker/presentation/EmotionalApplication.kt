@@ -1,6 +1,7 @@
-package com.emotiontracker.domain.repository
+package com.emotiontracker.presentation
 
 import android.app.Application
+import com.emotiontracker.data.repository.EmotionRepository
 
 class EmotionalApplication: Application() {
 

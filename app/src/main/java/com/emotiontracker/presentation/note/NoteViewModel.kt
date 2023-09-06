@@ -1,40 +1,57 @@
 package com.emotiontracker.presentation.note
 
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.emotiontracker.data.repository.EmotionRepository
 import com.emotiontracker.presentation.navigation.FragmentNavigator
 import com.emotiontracker.domain.EmotionInteractor
-import com.emotiontracker.presentation.navigation.NavigateToSomeFragment
+import com.emotiontracker.domain.EmotionModel
+import com.emotiontracker.presentation.datasource.Emotion
 import java.util.Calendar
 import java.util.Date
 
-class NoteViewModel: ViewModel()  {
+class NoteViewModel(private var emotionInterator: EmotionInteractor,
+                    private var fragmentNavigator: FragmentNavigator): ViewModel()  {
 
     var emotionClassName: String? = ""
+
+    var emotionClass: Emotion? = null
+
+    var emotionName: String? = ""
 
     var note: String? = ""
 
     var date: Date = Calendar.getInstance().time
 
-    private val emotionInterator = EmotionInteractor()
-
-    fun saveEmotion() {
-        emotionInterator.emotionModel.className = emotionClassName
-        emotionInterator.emotionModel.note = note
-        emotionInterator.emotionModel.date = date
-        emotionInterator.saveEmotion()
-    }
-
-    var navigator: NavigateToSomeFragment? = null
-
     fun initViewModel(fragmentNavigator: FragmentNavigator) {
-        this.navigator = fragmentNavigator
+        this.fragmentNavigator = fragmentNavigator
     }
 
+    fun saveEmotion(className: String?, note: String?, date: Date) {
+        emotionInterator.saveEmotion(className, note, date)
+    }
     fun onForward(){
-        navigator?.showCalendarFragment()
+        fragmentNavigator.showCalendarFragment()
     }
 
     fun onButtonBack(){
-        navigator?.showChoiceFragment()
+        fragmentNavigator.showChoiceFragment()
     }
+
+    companion object {
+
+        val factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
+
+            override fun <T : ViewModel> create(
+                modelClass: Class<T>
+            ): T {
+                val emotionInterator = EmotionInteractor(EmotionRepository.get(), EmotionModel())
+                val fragmentNavigator = FragmentNavigator(activity = AppCompatActivity())
+
+                return NoteViewModel(emotionInterator, fragmentNavigator) as T
+            }
+        }
+    }
+
 }

@@ -14,13 +14,15 @@ import com.emotiontracker.presentation.navigation.FragmentNavigator
 import com.emotiontracker.R
 import com.emotiontracker.databinding.ChoiceFragmentBinding
 
+
+
 class ChoiceFragment: Fragment() {
 
     private var _binding: ChoiceFragmentBinding? = null
     private val binding: ChoiceFragmentBinding
         get() = _binding!!
 
-    private val choiceViewModel: ChoiceViewModel by viewModels()
+    private val choiceViewModel: ChoiceViewModel by viewModels {ChoiceViewModel.Factory}
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -118,5 +120,6 @@ class ChoiceFragment: Fragment() {
         _binding = null
     }
 }
+
 
 

@@ -178,7 +178,7 @@ sealed class Emotion {
 
     companion object {
         private fun getAllEmotions(): List<Emotion> {
-            return listOf<Emotion>(
+            return listOf(
                 Angry.Anger(),
                 Angry.Frustration(),
                 Angry.Rage(),
