@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.emotiontracker.data.repository.EmotionRepository
 import com.emotiontracker.domain.EmotionInteractor
-import com.emotiontracker.domain.EmotionModel
 import com.emotiontracker.presentation.navigation.FragmentNavigator
 import java.time.Instant
 import java.time.LocalDate
@@ -14,10 +13,10 @@ import java.util.Calendar
 
 
 class CalendarViewModel(
-    emotionInterator: EmotionInteractor,
+    emotionInteractor: EmotionInteractor,
     private var fragmentNavigator: FragmentNavigator): ViewModel() {
 
-    val moodListLiveData = emotionInterator.getMoods()
+    val moodModelLiveDataList = emotionInteractor.getMoods()
     private val calendar = Calendar.getInstance()
     var selectDate: Long = 0
     var item = 0
@@ -36,9 +35,8 @@ class CalendarViewModel(
             .atZone(ZoneId.systemDefault())
             .toLocalDate()
 
-        val listMoods = moodListLiveData.value
+        val listMoods = moodModelLiveDataList.value
         listMoods?.forEach {
-
             val saveDate: LocalDate = Instant
                 .ofEpochMilli(it.date.time)
                 .atZone(ZoneId.systemDefault())
@@ -60,16 +58,14 @@ class CalendarViewModel(
     }
 
     companion object {
-
         val factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-
             override fun <T : ViewModel> create(
                 modelClass: Class<T>
             ): T {
-                val emotionInterator = EmotionInteractor(EmotionRepository.get(), EmotionModel())
+                val emotionInteractor = EmotionInteractor(EmotionRepository.get())
                 val fragmentNavigator = FragmentNavigator(activity = AppCompatActivity())
 
-                return CalendarViewModel(emotionInterator, fragmentNavigator) as T
+                return CalendarViewModel(emotionInteractor, fragmentNavigator) as T
             }
         }
     }

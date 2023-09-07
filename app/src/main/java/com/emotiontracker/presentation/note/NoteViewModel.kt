@@ -6,12 +6,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.emotiontracker.data.repository.EmotionRepository
 import com.emotiontracker.presentation.navigation.FragmentNavigator
 import com.emotiontracker.domain.EmotionInteractor
-import com.emotiontracker.domain.EmotionModel
 import com.emotiontracker.presentation.datasource.Emotion
 import java.util.Calendar
 import java.util.Date
 
-class NoteViewModel(private var emotionInterator: EmotionInteractor,
+class NoteViewModel(private var emotionInteractor: EmotionInteractor,
                     private var fragmentNavigator: FragmentNavigator): ViewModel()  {
 
     var emotionClassName: String? = ""
@@ -29,7 +28,7 @@ class NoteViewModel(private var emotionInterator: EmotionInteractor,
     }
 
     fun saveEmotion(className: String?, note: String?, date: Date) {
-        emotionInterator.saveEmotion(className, note, date)
+        emotionInteractor.saveEmotion(className, note, date)
     }
     fun onForward(){
         fragmentNavigator.showCalendarFragment()
@@ -46,7 +45,7 @@ class NoteViewModel(private var emotionInterator: EmotionInteractor,
             override fun <T : ViewModel> create(
                 modelClass: Class<T>
             ): T {
-                val emotionInterator = EmotionInteractor(EmotionRepository.get(), EmotionModel())
+                val emotionInterator = EmotionInteractor(EmotionRepository.get())
                 val fragmentNavigator = FragmentNavigator(activity = AppCompatActivity())
 
                 return NoteViewModel(emotionInterator, fragmentNavigator) as T

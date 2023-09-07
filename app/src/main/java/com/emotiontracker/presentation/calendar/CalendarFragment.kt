@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emotiontracker.presentation.datasource.Emotion
 import com.emotiontracker.presentation.navigation.FragmentNavigator
-import com.emotiontracker.data.datamodel.Mood
 import com.emotiontracker.databinding.CalendarFragmentBinding
 import com.emotiontracker.databinding.ItemMoodBinding
+import com.emotiontracker.domain.MoodModel
 
 class CalendarFragment : Fragment() {
 
@@ -45,7 +45,7 @@ class CalendarFragment : Fragment() {
 
         calendarViewModel.initViewModel(FragmentNavigator(requireActivity() as AppCompatActivity))
 
-        calendarViewModel.moodListLiveData.observe(viewLifecycleOwner) { moods ->
+        calendarViewModel.moodModelLiveDataList.observe(viewLifecycleOwner) { moods ->
             moods?.let {
                 updateUI(moods)
             }
@@ -62,12 +62,12 @@ class CalendarFragment : Fragment() {
         }
     }
 
-    private fun updateUI(moods: List<Mood>){
+    private fun updateUI(moods: List<MoodModel>){
         adapter = MoodAdapter(moods)
         binding.rwMood.adapter = adapter
     }
 
-    inner class MoodAdapter(var moods: List<Mood>): RecyclerView.Adapter<MoodAdapter.MoodViewHolder>() {
+    inner class MoodAdapter(var moods: List<MoodModel>): RecyclerView.Adapter<MoodAdapter.MoodViewHolder>() {
 
         inner class MoodViewHolder(view: View): RecyclerView.ViewHolder(view){
             private val moodDate = bindingItem.moodDate
@@ -75,8 +75,8 @@ class CalendarFragment : Fragment() {
             private val moodName = bindingItem.moodName
             private val moodCard = bindingItem.itemCard
 
-            fun bind(mood: Mood){
-                val emotionClassName = mood.simpleName
+            fun bind(mood: MoodModel){
+                val emotionClassName = mood.className
                 val emotionClass = emotionClassName?.let { Emotion.getFromSimpleName(it) }
                 moodName.text = emotionClass?.name?.let { getString(it) }
                 moodDate.text = DateFormat.format("dd.MM.yy", mood.date).toString()
@@ -110,7 +110,5 @@ class CalendarFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
-
 }
 

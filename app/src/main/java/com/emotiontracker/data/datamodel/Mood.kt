@@ -10,7 +10,7 @@ data class Mood(
     @PrimaryKey(autoGenerate = true)
     var id: Int?,
     @ColumnInfo(name = "simpleName")
-    val simpleName: String?,
+    var simpleName: String?,
     @ColumnInfo(name = "note")
     val note: String?,
     @ColumnInfo(name = "date")
