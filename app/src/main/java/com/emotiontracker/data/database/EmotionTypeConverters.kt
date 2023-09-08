@@ -1,8 +1,6 @@
-package com.emotiontracker.database
+package com.emotiontracker.data.database
 
 import androidx.room.TypeConverter
-import java.time.LocalDate
-import java.util.Calendar
 import java.util.Date
 import java.util.UUID
 

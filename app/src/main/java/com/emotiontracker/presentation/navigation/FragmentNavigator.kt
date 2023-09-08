@@ -1,8 +1,12 @@
-package com.emotiontracker
+package com.emotiontracker.presentation.navigation
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import com.emotiontracker.R
+import com.emotiontracker.presentation.calendar.CalendarFragment
+import com.emotiontracker.presentation.choice.ChoiceFragment
+import com.emotiontracker.presentation.note.NoteFragment
 import java.lang.ref.WeakReference
 
 class FragmentNavigator (activity: AppCompatActivity): NavigateToSomeFragment {

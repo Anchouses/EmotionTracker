@@ -1,11 +1,9 @@
-package com.emotiontracker.database
+package com.emotiontracker.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverter
 import androidx.room.TypeConverters
-import com.emotiontracker.Emotion
-import com.emotiontracker.Mood
+import com.emotiontracker.data.datamodel.Mood
 
 @Database (entities = [Mood::class], version = 2)
 @TypeConverters(EmotionTypeConverters::class)

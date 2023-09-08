@@ -1,7 +1,8 @@
-package com.emotiontracker
+package com.emotiontracker.presentation.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.emotiontracker.presentation.navigation.FragmentNavigator
 import com.emotiontracker.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity()  {
