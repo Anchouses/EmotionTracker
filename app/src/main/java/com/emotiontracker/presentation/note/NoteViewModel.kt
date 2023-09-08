@@ -45,10 +45,10 @@ class NoteViewModel(private var emotionInteractor: EmotionInteractor,
             override fun <T : ViewModel> create(
                 modelClass: Class<T>
             ): T {
-                val emotionInterator = EmotionInteractor(EmotionRepository.get())
+                val emotionInteractor = EmotionInteractor(EmotionRepository.get())
                 val fragmentNavigator = FragmentNavigator(activity = AppCompatActivity())
 
-                return NoteViewModel(emotionInterator, fragmentNavigator) as T
+                return NoteViewModel(emotionInteractor, fragmentNavigator) as T
             }
         }
     }

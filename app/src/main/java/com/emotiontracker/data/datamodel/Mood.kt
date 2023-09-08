@@ -8,9 +8,9 @@ import java.util.Date
 @Entity
 data class Mood(
     @PrimaryKey(autoGenerate = true)
-    var id: Int?,
+    val id: Int?,
     @ColumnInfo(name = "simpleName")
-    var simpleName: String?,
+    val simpleName: String?,
     @ColumnInfo(name = "note")
     val note: String?,
     @ColumnInfo(name = "date")

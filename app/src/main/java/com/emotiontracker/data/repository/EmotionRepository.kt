@@ -7,12 +7,14 @@ import androidx.room.Room
 import com.emotiontracker.data.database.EmotionDatabase
 import com.emotiontracker.data.datamodel.Mood
 import com.emotiontracker.domain.MoodModel
+import com.emotiontracker.domain.RepositoryInterface
+import java.util.Date
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
 
 const val DATABASE_NAME = "Emotions"
-class EmotionRepository private constructor(context: Context) {
+class EmotionRepository private constructor(context: Context): RepositoryInterface {
 
     private val database: EmotionDatabase = Room.databaseBuilder(
         context.applicationContext,
@@ -24,7 +26,7 @@ class EmotionRepository private constructor(context: Context) {
 
     private val executor: Executor = Executors.newSingleThreadExecutor()
 
-    fun getMoods(): LiveData<List<MoodModel>> {
+    override fun getMoods(): LiveData<List<MoodModel>> {
         val oldList: LiveData<List<Mood>> = emotionDao.getMoods()
 
         return oldList.map { list ->
@@ -39,7 +41,7 @@ class EmotionRepository private constructor(context: Context) {
         }
     }
 
-    fun getMood(id: Int): LiveData<MoodModel> {
+    override fun getMood(id: Int): LiveData<MoodModel> {
         val mood: LiveData<Mood> = emotionDao.getMood(id)
 
         return mood.map { MoodModel(
@@ -51,20 +53,24 @@ class EmotionRepository private constructor(context: Context) {
         }
     }
 
-    fun addMood(moodModel: MoodModel) {
+    override fun addMood(moodModel: MoodModel) {
         val mood = Mood(id = null, moodModel.className, moodModel.note, moodModel.date)
         executor.execute{
             emotionDao.addMood(mood)
         }
     }
 
-    fun updateMood(moodModel: MoodModel){
+    override fun updateMood(moodModel: MoodModel){
         val mood = Mood(id = null, moodModel.className, moodModel.note, moodModel.date)
         executor.execute{
             emotionDao.updateMood(mood)
         }
     }
 
+    override fun saveEmotion(className: String?, note: String?, date: Date) {
+        val moodModel = MoodModel(id = null, className, note, date)
+        addMood(moodModel)
+    }
 
     companion object {
         private var INSTANCE: EmotionRepository? = null

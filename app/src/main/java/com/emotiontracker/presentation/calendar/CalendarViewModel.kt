@@ -13,7 +13,7 @@ import java.util.Calendar
 
 
 class CalendarViewModel(
-    emotionInteractor: EmotionInteractor,
+    private val emotionInteractor: EmotionInteractor,
     private var fragmentNavigator: FragmentNavigator): ViewModel() {
 
     val moodModelLiveDataList = emotionInteractor.getMoods()
