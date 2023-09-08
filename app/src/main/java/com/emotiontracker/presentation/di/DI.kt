@@ -29,20 +29,18 @@ val presentationModule = module {
     }
 
     viewModel {
-        ChoiceViewModel(fragmentNavigator = get())
+        ChoiceViewModel()
     }
 
     viewModel {
         NoteViewModel(
-            emotionInteractor = get(),
-            fragmentNavigator = get()
+            emotionInteractor = get()
         )
     }
 
     viewModel {
         CalendarViewModel(
-            emotionInteractor = get(),
-            fragmentNavigator = get()
+            emotionInteractor = get()
         )
     }
 }

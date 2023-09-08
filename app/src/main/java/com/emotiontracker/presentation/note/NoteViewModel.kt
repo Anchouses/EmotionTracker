@@ -7,8 +7,13 @@ import com.emotiontracker.presentation.datasource.Emotion
 import java.util.Calendar
 import java.util.Date
 
-class NoteViewModel(private var emotionInteractor: EmotionInteractor,
-                    private var fragmentNavigator: FragmentNavigator): ViewModel() {
+class NoteViewModel(private var emotionInteractor: EmotionInteractor): ViewModel() {
+
+    private var fragmentNavigator: FragmentNavigator? = null
+
+    fun initViewModel(fragmentNavigator: FragmentNavigator){
+        this.fragmentNavigator = fragmentNavigator
+    }
 
     var emotionClassName: String? = ""
 
@@ -23,15 +28,12 @@ class NoteViewModel(private var emotionInteractor: EmotionInteractor,
     fun saveEmotion(className: String?, note: String?, date: Date) {
         emotionInteractor.saveEmotion(className, note, date)
     }
+
     fun onForward(){
-        fragmentNavigator.showCalendarFragment()
+        fragmentNavigator?.showCalendarFragment()
     }
 
     fun onButtonBack(){
-        fragmentNavigator.showChoiceFragment()
-    }
-
-    fun initViewModel(fragmentNavigator: FragmentNavigator){
-        this.fragmentNavigator = fragmentNavigator
+        fragmentNavigator?.showChoiceFragment()
     }
 }
