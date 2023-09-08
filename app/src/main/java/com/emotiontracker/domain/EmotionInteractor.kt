@@ -3,8 +3,7 @@ package com.emotiontracker.domain
 import androidx.lifecycle.LiveData
 import java.util.Date
 
-class EmotionInteractor(
-    private val repositoryInterface: RepositoryInterface) {
+class EmotionInteractor(private val repositoryInterface: RepositoryInterface) {
 
     fun getMoods(): LiveData<List<MoodModel>> {
         return repositoryInterface.getMoods()

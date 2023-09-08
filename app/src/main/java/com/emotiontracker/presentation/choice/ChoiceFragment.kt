@@ -8,12 +8,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import com.emotiontracker.presentation.datasource.Emotion
 import com.emotiontracker.presentation.navigation.FragmentNavigator
 import com.emotiontracker.R
 import com.emotiontracker.databinding.ChoiceFragmentBinding
-
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class ChoiceFragment: Fragment() {
@@ -22,7 +21,7 @@ class ChoiceFragment: Fragment() {
     private val binding: ChoiceFragmentBinding
         get() = _binding!!
 
-    private val choiceViewModel: ChoiceViewModel by viewModels {ChoiceViewModel.Factory}
+    private val choiceViewModel by viewModel <ChoiceViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -8,10 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import com.emotiontracker.presentation.datasource.Emotion
 import com.emotiontracker.presentation.navigation.FragmentNavigator
 import com.emotiontracker.databinding.NoteFragmentBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 
 const val EMOTION = "emotion"
@@ -22,7 +23,7 @@ class NoteFragment: Fragment() {
     private val binding: NoteFragmentBinding
         get() = _binding!!
 
-    private val noteViewModel: NoteViewModel by viewModels { NoteViewModel.factory }
+    private val noteViewModel by viewModel <NoteViewModel>()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -59,7 +60,7 @@ class NoteFragment: Fragment() {
             override fun afterTextChanged(sequence: Editable?) {
             }
         }
-        binding.editNote.addTextChangedListener(textWatcher)   //Добавляем TextWatcher в список методов, которые вызываются при изменении текста TextView.
+        binding.editNote.addTextChangedListener(textWatcher)
 
         binding.buttonBack.setOnClickListener{
             noteViewModel.onButtonBack()

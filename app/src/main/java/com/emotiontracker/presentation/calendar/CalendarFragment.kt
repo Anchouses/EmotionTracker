@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emotiontracker.presentation.datasource.Emotion
@@ -15,6 +14,7 @@ import com.emotiontracker.presentation.navigation.FragmentNavigator
 import com.emotiontracker.databinding.CalendarFragmentBinding
 import com.emotiontracker.databinding.ItemMoodBinding
 import com.emotiontracker.domain.MoodModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CalendarFragment : Fragment() {
 
@@ -28,7 +28,7 @@ class CalendarFragment : Fragment() {
 
     private var adapter = MoodAdapter(emptyList())
 
-    private val calendarViewModel: CalendarViewModel by viewModels {CalendarViewModel.factory}
+    private val calendarViewModel by viewModel <CalendarViewModel>()
 
 
     override fun onCreateView(
