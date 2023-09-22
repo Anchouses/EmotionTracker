@@ -13,7 +13,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/corner_radius"
-        android:backgroundTint="@color/trust"
         android:contentDescription="@string/back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -28,7 +27,6 @@
         android:gravity="center_vertical"
         android:paddingStart="30dp"
         android:text="@string/add_note"
-        android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,7 +40,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/emotion"
-        android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -57,7 +54,6 @@
         android:layout_marginTop="16dp"
         android:layout_marginRight="16dp"
         android:text="@string/note_description"
-        android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -66,7 +62,7 @@
         app:layout_constraintTop_toBottomOf="@+id/emotion_name" />
 
     <TextView
-        android:id="@+id/list1"
+        android:id="@+id/list_point_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -74,8 +70,7 @@
         android:gravity="start"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
-        android:text="@string/list1"
-        android:textColor="@color/black"
+        android:text="@string/list_point_1"
         android:textSize="16sp"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -84,7 +79,7 @@
         app:layout_constraintTop_toBottomOf="@+id/note_description" />
 
     <TextView
-        android:id="@+id/list2"
+        android:id="@+id/list_point_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -92,17 +87,16 @@
         android:gravity="start"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
-        android:text="@string/list2"
-        android:textColor="@color/black"
+        android:text="@string/list_point_2"
         android:textSize="16sp"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/list1" />
+        app:layout_constraintTop_toBottomOf="@+id/list_point_1" />
 
     <TextView
-        android:id="@+id/list3"
+        android:id="@+id/list_point_3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -110,17 +104,16 @@
         android:gravity="start"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
-        android:text="@string/list3"
-        android:textColor="@color/black"
+        android:text="@string/list_point_3"
         android:textSize="16sp"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/list2" />
+        app:layout_constraintTop_toBottomOf="@+id/list_point_2" />
 
     <TextView
-        android:id="@+id/list4"
+        android:id="@+id/list_point_4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -128,14 +121,13 @@
         android:gravity="start"
         android:paddingTop="8dp"
         android:paddingEnd="8dp"
-        android:text="@string/list4"
-        android:textColor="@color/black"
+        android:text="@string/list_point_4"
         android:textSize="16sp"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/list3" />
+        app:layout_constraintTop_toBottomOf="@+id/list_point_3" />
 
     <EditText
         android:id="@+id/editNote"
@@ -148,13 +140,13 @@
         android:inputType="textMultiLine"
         android:paddingStart="2dp"
         android:paddingEnd="2dp"
-        android:textColor="@color/black"
         android:textSize="20sp"
+        android:outlineAmbientShadowColor="@color/trust"
         app:layout_constraintBottom_toTopOf="@+id/save_note"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/list4"
+        app:layout_constraintTop_toBottomOf="@+id/list_point_4"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
@@ -166,11 +158,10 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/corner_radius"
-        android:backgroundTint="@color/trust"
         android:text="@string/ready"
-        android:textAllCaps="false"
-        android:textColor="@color/black"
-        android:textSize="24sp"
+        android:textColor="@color/white"
+        android:textAllCaps="true"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

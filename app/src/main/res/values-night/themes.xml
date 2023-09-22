@@ -1,7 +1,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.EmotionTracker" parent="Theme.AppCompat.DayNight">
+    <style name="Base.Theme.EmotionTracker" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+         <item name="colorPrimary">@color/night_primary_color</item>
+        <item name="android:statusBarColor">@color/night_primary_color</item>
+        <item name="android:navigationBarColor">@color/night_primary_color</item>
+
     </style>
 </resources>

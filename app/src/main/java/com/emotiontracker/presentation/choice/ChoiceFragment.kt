@@ -14,7 +14,6 @@ import com.emotiontracker.R
 import com.emotiontracker.databinding.ChoiceFragmentBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
 class ChoiceFragment: Fragment() {
 
     private var _binding: ChoiceFragmentBinding? = null
@@ -39,29 +38,8 @@ class ChoiceFragment: Fragment() {
         val now = choiceViewModel.date
         binding.date.text  = format("Сегодня, dd.MM.yy", now)
 
-        binding.angryButton.setOnClickListener{
-            emotionChoice(Emotion.Angry.Anger())
-        }
-        binding.fearButton.setOnClickListener{
-            emotionChoice(Emotion.Fearing.Fear())
-        }
-        binding.surpriseButton.setOnClickListener{
-            emotionChoice(Emotion.Surprising.Surprise())
-        }
-        binding.sadButton.setOnClickListener{
-            emotionChoice(Emotion.Sadness.Sad())
-        }
-        binding.dislikeButton.setOnClickListener{
-            emotionChoice(Emotion.Aversion.Dislike())
-        }
-        binding.interestButton.setOnClickListener{
-            emotionChoice(Emotion.Interesting.Anticipation())
-        }
-        binding.joyButton.setOnClickListener{
-            emotionChoice(Emotion.Glad.Joy())
-        }
-        binding.trustButton.setOnClickListener{
-            emotionChoice(Emotion.Trusting.Trust())
+        binding.circleView.onTouchResult = {
+            emotionChoice(it)
         }
 
         binding.choiceButton.setOnClickListener{
