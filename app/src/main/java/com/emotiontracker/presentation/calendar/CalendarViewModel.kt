@@ -1,21 +1,27 @@
 package com.emotiontracker.presentation.calendar
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.emotiontracker.domain.EmotionInteractor
+import com.emotiontracker.domain.MoodModel
 import com.emotiontracker.presentation.navigation.FragmentNavigator
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
 import java.util.Calendar
 
-class CalendarViewModel(private var emotionInteractor: EmotionInteractor) : ViewModel() {
+class CalendarViewModel(emotionInteractor: EmotionInteractor) : ViewModel() {
 
     private var fragmentNavigator: FragmentNavigator? = null
     fun initViewModel(fragmentNavigator: FragmentNavigator){
         this.fragmentNavigator = fragmentNavigator
     }
+    var listDates = emptyList<MoodModel>()
 
-    val moodModelLiveDataList = emotionInteractor.getMoods()
+    val moodModelFlowList: Flow<List<MoodModel>> = emotionInteractor.getMoods()
+
     private val calendar = Calendar.getInstance()
     var selectDate: Long = 0
     var item = 0
@@ -27,6 +33,14 @@ class CalendarViewModel(private var emotionInteractor: EmotionInteractor) : View
         return calendar.timeInMillis
     }
 
+    init {
+        viewModelScope.launch {
+            moodModelFlowList.collect(){
+                listDates = it
+            }
+        }
+    }
+
     fun getDateItem(selectDate: Long): Int {
 
         val selectLocalDate: LocalDate = Instant
@@ -34,17 +48,17 @@ class CalendarViewModel(private var emotionInteractor: EmotionInteractor) : View
             .atZone(ZoneId.systemDefault())
             .toLocalDate()
 
-        val listMoods = moodModelLiveDataList.value
-        listMoods?.forEach {
+        listDates.forEach { mood ->
             val saveDate: LocalDate = Instant
-                .ofEpochMilli(it.date.time)
+                .ofEpochMilli(mood.date.time)
                 .atZone(ZoneId.systemDefault())
                 .toLocalDate()
 
             if (saveDate == selectLocalDate) {
-                item = listMoods.indexOf(it)
+                item = listDates.indexOf(mood)
             }
         }
+
         return item
     }
 

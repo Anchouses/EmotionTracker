@@ -2,19 +2,8 @@ package com.emotiontracker.data.database
 
 import androidx.room.TypeConverter
 import java.util.Date
-import java.util.UUID
 
 class EmotionTypeConverters {
-
-    @TypeConverter
-    fun fromUUID(uuid: UUID?): String?{
-        return uuid?.toString()
-    }
-
-    @TypeConverter
-    fun toUUID(uuid: String?): UUID? {
-        return UUID.fromString(uuid)
-    }
 
     @TypeConverter
     fun fromDate(date: Date?): Long? {

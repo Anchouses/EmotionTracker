@@ -1,15 +1,13 @@
 package com.emotiontracker.domain
 
-import androidx.lifecycle.LiveData
+import kotlinx.coroutines.flow.Flow
 import java.util.Date
 
 interface RepositoryInterface {
 
     fun saveEmotion(className: String?, note: String?, date: Date)
 
-    fun getMoods(): LiveData<List<MoodModel>>
-
-    fun getMood(id: Int): LiveData<MoodModel>
+    fun getMoods(): Flow<List<MoodModel>>
 
     fun addMood(moodModel: MoodModel)
 

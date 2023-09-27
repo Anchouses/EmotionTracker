@@ -1,11 +1,11 @@
 package com.emotiontracker.domain
 
-import androidx.lifecycle.LiveData
+import kotlinx.coroutines.flow.Flow
 import java.util.Date
 
 class EmotionInteractor(private val repositoryInterface: RepositoryInterface) {
 
-    fun getMoods(): LiveData<List<MoodModel>> {
+    fun getMoods(): Flow<List<MoodModel>> {
         return repositoryInterface.getMoods()
     }
 

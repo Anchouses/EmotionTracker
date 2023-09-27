@@ -13,11 +13,11 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/corner_radius"
-        android:backgroundTint="@color/trust"
         android:contentDescription="@string/back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="?attr/homeAsUpIndicator" />
+        app:srcCompat="?attr/actionModeCloseDrawable"
+        app:tint="@color/white"/>
 
     <TextView
         android:id="@+id/calendar_name"
@@ -26,7 +26,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:gravity="center_vertical"
-        android:paddingStart="60dp"
+        android:paddingStart="30dp"
         android:text="@string/calendar"
         android:textColor="@color/black"
         android:textSize="24sp"
@@ -42,6 +42,8 @@
         android:layout_width="match_parent"
         android:layout_height="311dp"
         android:layout_marginTop="16dp"
+        android:background="@drawable/corner_radius"
+        android:backgroundTint="@color/white"
         android:contextClickable="true"
         android:dateTextAppearance="@style/TextAppearance.AppCompat.Medium"
         android:weekDayTextAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -52,10 +54,11 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rwMood"
         android:layout_width="match_parent"
-        android:layout_height="335dp"
+        android:layout_height="330dp"
+        android:clipToPadding="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calendarView"
         app:layout_constraintVertical_bias="0.0"
