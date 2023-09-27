@@ -1,25 +1,22 @@
 package com.emotiontracker.data.database
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.emotiontracker.data.datamodel.Mood
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface EmotionDao {
 
     @Query("SELECT * FROM Mood")
-    fun getMoods(): LiveData<List<Mood>>
+    fun getMoods(): Flow<List<Mood>>
 
-    @Query("SELECT * FROM Mood WHERE id=(:id)")  //
-    fun getMood(id: Int): LiveData<Mood>
-
-    @Insert  //сохранить заметку
+    @Insert
     fun  addMood(mood: Mood)
 
-    @Update  //обновить заметку
+    @Update
     fun updateMood(mood: Mood)
 
 

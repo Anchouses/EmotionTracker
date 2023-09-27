@@ -7,6 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emotiontracker.presentation.datasource.Emotion
@@ -14,6 +17,7 @@ import com.emotiontracker.presentation.navigation.FragmentNavigator
 import com.emotiontracker.databinding.CalendarFragmentBinding
 import com.emotiontracker.databinding.ItemMoodBinding
 import com.emotiontracker.domain.MoodModel
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CalendarFragment : Fragment() {
@@ -45,9 +49,11 @@ class CalendarFragment : Fragment() {
 
         calendarViewModel.initViewModel(FragmentNavigator(requireActivity() as AppCompatActivity))
 
-        calendarViewModel.moodModelLiveDataList.observe(viewLifecycleOwner) { moods ->
-            moods?.let {
-                updateUI(moods)
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                calendarViewModel.moodModelFlowList.collect {
+                updateUI(it)
+                }
             }
         }
 

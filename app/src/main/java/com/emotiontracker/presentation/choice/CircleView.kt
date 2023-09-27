@@ -200,12 +200,13 @@ class CircleView @JvmOverloads constructor(
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
         val getSectorName: String?
+        val getSector = getSector(event)
         if (isInsideCircle(event.x, event.y)) {
             when (event.action) {
 
                 MotionEvent.ACTION_DOWN -> {
-                    return if (getSector(event) != null) {
-                        getSectorName = getSector(event).let { it!!::class.simpleName }
+                    return if (getSector != null) {
+                        getSectorName = getSector.let { it::class.simpleName }
                         vibrate()
                         getEmotionName = getSectorName
                         true
@@ -213,8 +214,8 @@ class CircleView @JvmOverloads constructor(
                 }
 
                 MotionEvent.ACTION_MOVE -> {
-                    return if (getSector(event) != null) {
-                        getSectorName = getSector(event).let { it!!::class.simpleName }
+                    return if (getSector != null) {
+                        getSectorName = getSector.let { it::class.simpleName }
                         if (getEmotionName != getSectorName) {
                             vibrate()
                         }

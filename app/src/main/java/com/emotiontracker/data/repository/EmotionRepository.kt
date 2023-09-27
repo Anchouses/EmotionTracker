@@ -1,13 +1,13 @@
 package com.emotiontracker.data.repository
 
 import android.content.Context
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.map
 import androidx.room.Room
 import com.emotiontracker.data.database.EmotionDatabase
 import com.emotiontracker.data.datamodel.Mood
 import com.emotiontracker.domain.MoodModel
 import com.emotiontracker.domain.RepositoryInterface
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import java.util.Date
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
@@ -26,11 +26,10 @@ class EmotionRepository private constructor(context: Context): RepositoryInterfa
 
     private val executor: Executor = Executors.newSingleThreadExecutor()
 
-    override fun getMoods(): LiveData<List<MoodModel>> {
-        val oldList: LiveData<List<Mood>> = emotionDao.getMoods()
-
-        return oldList.map { list ->
-            list.map {
+    override fun getMoods(): Flow<List<MoodModel>> {
+        val oldList: Flow<List<Mood>> = emotionDao.getMoods()
+        return oldList.map { element ->
+            element.map {
                 MoodModel(
                     id = it.id,
                     className = it.simpleName,
@@ -38,18 +37,6 @@ class EmotionRepository private constructor(context: Context): RepositoryInterfa
                     date = it.date
                 )
             }
-        }
-    }
-
-    override fun getMood(id: Int): LiveData<MoodModel> {
-        val mood: LiveData<Mood> = emotionDao.getMood(id)
-
-        return mood.map { MoodModel(
-            id = it.id,
-            className = it.simpleName,
-            note = it.note,
-            date = it.date
-            )
         }
     }
 
