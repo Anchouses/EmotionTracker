@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/choice_fragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/how_you_feel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="@string/how_you_feel_now"
+        android:textAllCaps="true"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.emotiontracker.presentation.choice.CircleView
+        android:id="@+id/circleView"
+        android:layout_width="320dp"
+        android:layout_height="320dp"
+        android:foregroundGravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/level_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/how_you_feel" />
+
+    <LinearLayout
+        android:id="@+id/level_bar"
+        android:layout_width="match_parent"
+        android:layout_height="278dp"
+        android:gravity="top"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_gravity="top"
+            android:gravity="center"
+            android:text="@string/date"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/chosen_emotion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:gravity="center"
+            android:text="@string/emotion"
+            android:textAllCaps="true"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/emotion_description"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:gravity="center_horizontal"
+            android:text="@string/description"
+            android:textSize="16sp" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:checkedButton="@+id/middleLevel"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/lightLevel"
+                android:layout_width="120dp"
+                android:layout_height="68dp"
+                android:layout_gravity="start"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="4dp"
+                android:autoSizeTextType="none"
+                android:button="@null"
+                android:drawableBottom="?android:attr/listChoiceIndicatorSingle"
+                android:gravity="center_horizontal|bottom"
+                android:hyphenationFrequency="fullFast"
+                android:paddingStart="10dp"
+                android:soundEffectsEnabled="true"
+                android:text="@string/light_level"
+                android:textAlignment="gravity"
+                android:textColorHighlight="@color/white"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/middleLevel"
+                android:layout_width="120dp"
+                android:layout_height="68dp"
+                android:layout_gravity="center|top"
+                android:button="@null"
+                android:drawableBottom="?android:attr/listChoiceIndicatorSingle"
+                android:gravity="center_horizontal|bottom"
+                android:hyphenationFrequency="fullFast"
+                android:soundEffectsEnabled="true"
+                android:text="@string/middle_level"
+                android:textAlignment="gravity"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/hardLevel"
+                android:layout_width="120dp"
+                android:layout_height="68dp"
+                android:layout_gravity="end"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="16dp"
+                android:button="@null"
+                android:drawableBottom="?android:attr/listChoiceIndicatorSingle"
+                android:gravity="center_horizontal|bottom"
+                android:hyphenationFrequency="fullFast"
+                android:paddingEnd="10dp"
+                android:soundEffectsEnabled="true"
+                android:text="@string/hard_level"
+                android:textAlignment="gravity"
+                android:textSize="14sp" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/choice_button"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="fill_vertical"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/corner_radius"
+            android:text="@string/choice"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
