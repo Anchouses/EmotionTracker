@@ -5,6 +5,7 @@ import android.os.Bundle
 import com.emotiontracker.presentation.navigation.FragmentNavigator
 import com.emotiontracker.databinding.ActivityMainBinding
 
+
 class MainActivity : AppCompatActivity()  {
 
     private lateinit var  binding: ActivityMainBinding

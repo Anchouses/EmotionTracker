@@ -18,7 +18,7 @@ class CalendarViewModel(emotionInteractor: EmotionInteractor) : ViewModel() {
     fun initViewModel(fragmentNavigator: FragmentNavigator){
         this.fragmentNavigator = fragmentNavigator
     }
-    var listDates = emptyList<MoodModel>()
+    private var listDates = emptyList<MoodModel>()
 
     val moodModelFlowList: Flow<List<MoodModel>> = emotionInteractor.getMoods()
 

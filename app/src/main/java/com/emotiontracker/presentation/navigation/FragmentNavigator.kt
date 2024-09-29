@@ -23,7 +23,7 @@ class FragmentNavigator (activity: AppCompatActivity): NavigateToSomeFragment {
         return activity.supportFragmentManager
     }
 
-    private fun showFragment(fragment: Fragment, tag: String){
+    private fun showFragment(fragment: Fragment, tag: String) {
         val fragmentManager: FragmentManager = fragmentManager ?: return
         fragmentManager
             .beginTransaction()
