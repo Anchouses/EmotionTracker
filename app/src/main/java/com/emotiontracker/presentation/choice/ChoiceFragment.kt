@@ -1,5 +1,6 @@
 package com.emotiontracker.presentation.choice
 
+import android.content.Context
 import android.os.Bundle
 import android.text.format.DateFormat.format
 import android.view.LayoutInflater
@@ -34,6 +35,15 @@ class ChoiceFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         choiceViewModel.initViewModel(FragmentNavigator(requireActivity() as AppCompatActivity))
+
+//        fun getScreenWidth(context: Context): Int {
+//            return context.resources.displayMetrics.widthPixels
+//        }
+//        val density = requireContext().resources.displayMetrics.density
+//        val screenWidthDp = (getScreenWidth(requireContext()) / density)
+//
+//        binding.circleView.layoutParams.width = screenWidthDp.toInt()
+//        binding.circleView.layoutParams.height = screenWidthDp.toInt()
 
         val now = choiceViewModel.date
         binding.date.text  = format("Сегодня, dd.MM.yy", now)
