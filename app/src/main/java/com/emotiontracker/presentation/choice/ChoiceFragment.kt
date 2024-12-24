@@ -8,10 +8,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.emotiontracker.presentation.datasource.Emotion
-import com.emotiontracker.presentation.navigation.FragmentNavigator
 import com.emotiontracker.R
 import com.emotiontracker.databinding.ChoiceFragmentBinding
+import com.emotiontracker.presentation.datasource.Emotion
+import com.emotiontracker.presentation.navigation.FragmentNavigator
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ChoiceFragment: Fragment() {
@@ -34,6 +34,15 @@ class ChoiceFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         choiceViewModel.initViewModel(FragmentNavigator(requireActivity() as AppCompatActivity))
+
+//        fun getScreenWidth(context: Context): Int {
+//            return context.resources.displayMetrics.widthPixels
+//        }
+//        val density = requireContext().resources.displayMetrics.density
+//        val screenWidthDp = (getScreenWidth(requireContext()) / density)
+//
+//        binding.circleView.layoutParams.width = screenWidthDp.toInt()
+//        binding.circleView.layoutParams.height = screenWidthDp.toInt()
 
         val now = choiceViewModel.date
         binding.date.text  = format("Сегодня, dd.MM.yy", now)
